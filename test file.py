@@ -15,3 +15,10 @@
  #   print(x)
 #except:
  #   print("error")
+
+
+
+#username = "phill"
+#namebank = ["jon", "jill", "mike", "elliot", "phill"]
+#print(namebank.index(username))
+
