@@ -37,7 +37,5 @@ def validate_date(date_time):
 
 
 
-
-
 if __name__ == "main":
     main()
