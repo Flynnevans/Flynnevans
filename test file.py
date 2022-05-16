@@ -22,3 +22,41 @@
 #namebank = ["jon", "jill", "mike", "elliot", "phill"]
 #print(namebank.index(username))
 
+
+# from tkinter import *
+#
+# win = Tk()
+# win.geometry ("400x300")
+# sbb = Scrollbar(win)
+#
+# sbb.pack(side=RIGHT, fill=Y)
+#
+# mylist = Listbox(win, yscrollcommand=sbb.set)
+#
+#
+name = "flynn evans"
+address = "3 woodbridge road"
+phone = "07555 942035"
+# mylist.insert(END,str(name) +", "+ str(address) + ", " + str(phone))
+#
+#
+# mylist.pack(side=LEFT)
+# sbb.config(command=mylist.yview)
+#
+# mainloop()
+
+
+import tkinter as tk
+
+root = tk.Tk()
+scrollbar = tk.Scrollbar(root, orient="vertical")
+lb = tk.Listbox(root, width=50, height=20, yscrollcommand=scrollbar.set)
+scrollbar.config(command=lb.yview)
+
+scrollbar.pack(side="right", fill="y")
+lb.pack(side="left",fill="both", expand=True)
+
+for i in range(0,100):
+    lb.insert("end", "item #%s" % i)
+
+root.mainloop()
