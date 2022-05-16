@@ -56,7 +56,7 @@ scrollbar.config(command=lb.yview)
 scrollbar.pack(side="right", fill="y")
 lb.pack(side="left",fill="both", expand=True)
 
-for i in range(0,100):
-    lb.insert("end", "item #%s" % i)
+for i in range(0,30):
+    lb.insert("end", "order #07652 "+ " flynn alan evans " +" 3 woodbridge rd "+" 07555 942035 ")
 
 root.mainloop()
