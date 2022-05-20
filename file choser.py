@@ -40,3 +40,11 @@ def specific_line(filepath,hi):
 
 #returns the specific line that you want
 
+
+def rename_file(filepath, newpath):
+    oldname = filepath
+    newname = newpath
+    os.rename(oldname,newname)
+
+#renames the file
+
