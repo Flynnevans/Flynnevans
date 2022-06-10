@@ -1,7 +1,8 @@
 from tkinter import *
-import login
+from login import *
 
 def login_window():
+
     login_page = Tk()
     login_page.title("Login Page")
     login_page.geometry("800x600")
@@ -16,28 +17,32 @@ def login_window():
     loginlabel.config(font=("arial", 9), bg="#728c8d")
     loginlabel.grid(row=1, column=0, columnspan=1, sticky="E", pady=10, padx=10)
 
+    User_input = StringVar()
+    Userinput = Entry(login_page, width=15, bg="#728c8d", textvariable=User_input)
+    Userinput.grid(row=1, column=1, padx=10, pady=10, sticky="SE")
+
+
+
     loginlabel = Label(login_page, text="Password:")
     loginlabel.config(font=("arial", 9), bg="#728c8d")
     loginlabel.grid(row=2, column=0, columnspan=1, sticky="NE", pady=10, padx=10)
 
-    User_input = tkinter.StringVar()
-    Userenter = Entry(login_page, width=15, bg="#728c8d", textvariable=User_input)
-    Userenter.grid(row=1, column=1, padx=10, pady=10, sticky="SE")
-
-    Pass_input = tkinter.StringVar()
-    Passenter = Entry(login_page, width=15, bg="#728c8d", textvariable=Pass_input)
-    Passenter.grid(row=2, column=1, padx=10, pady=10, sticky="SE")
+    Pass_input = StringVar()
+    Passinput = Entry(login_page, width=15, bg="#728c8d", textvariable=Pass_input)
+    Passinput.grid(row=2, column=1, padx=10, pady=10, sticky="SE")
 
 
 
 
-    login_lable = Button(login_page, text="Login", width=8, height=2, bg= "#C6CFFF")
+
+
+    login_lable = Button(login_page, text="Login", width=8, height=2, bg= "#C6CFFF", command=lambda: username_validation(Userinput.get(),Passinput.get()))
     login_lable.grid(row=3, column=0, padx=10, pady=10, sticky="E")
 
     backup_lable = Button(login_page, text="Back", width=8, height=2, bg= "#C6CFFF", command=login_page.destroy)
     backup_lable.grid(row=3, column=2, padx=10, pady=10, sticky="E")
 
-
+    mainloop()
 
 def mainpage_GUI():
 
