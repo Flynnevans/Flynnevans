@@ -18,32 +18,27 @@ def Create_Tables():
 
     conn.close()
 
-def InsertData():
+def AdminLogin():
     # inserting data into parent table DEPRATEMENTS
     # Enter values using input statements
 
     conn = sqlite3.connect('Mincrete.db')
     # insert data into database table
     # conn.execute('''insert into Login_details  (Username, Password) values (?, ?)''', )
-    conn.execute('''insert into Login_details  (Username, Password) values (?, ?)''',("Flynn","Pass"))
-
+    conn.execute('''insert into Login_details  (Username, Password) values (?, ?)''',("Admin","Password"))
 
     conn.commit()  # do not forget to commit the data (i.e. save the data on the table
     conn.close()
 
 
 
-def displayContents():
-    # here we will use select query
+def SignUp():
+
     conn = sqlite3.connect('Mincrete.db')
-    # Select all records in a table:
-    cursor = conn.execute(''' SELECT Username, Password FROM  Login_details ''')
+    conn.execute('''insert into Login_details  (Username, Password) values (?, ?)''')
 
-    # Display what you have selected
-
-    for row in cursor:
-        print("Username = ", row[0])
-        print("Password = ", row[1], "\n")
+    conn.commit()
+    conn.close()
 
 
 
