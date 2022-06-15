@@ -45,9 +45,9 @@ def signup_window():
     Adinput = Entry(textFrame, width=15, bg="#aaaaaa", textvariable=Ad_input)
     Adinput.grid(row=3, column=1, padx=10, pady=10, sticky="SE")
 #################################################
-    login_button = Button(buttonFrame, text="Sign up", width=8, height=2, bg="#C6CFFF")
-                          #command=lambda: username_validation(Userinput.get(), Passinput.get()))
-    login_button.grid(row=0, column=0, padx=10, pady=10, sticky="E")
+    signup_button = Button(buttonFrame, text="Sign up", width=8, height=2, bg="#C6CFFF",
+                    command=lambda: adminValidator(Userinput.get(), Passinput.get(), Adinput.get()))
+    signup_button.grid(row=0, column=0, padx=10, pady=10, sticky="E")
 
     back_button = Button(buttonFrame, text="Back", width=8, height=2, bg="#C6CFFF", command=signup.destroy)
     back_button.grid(row=0, column=2, padx=10, pady=10, sticky="E")

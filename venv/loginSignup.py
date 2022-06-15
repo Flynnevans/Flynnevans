@@ -18,31 +18,41 @@ def Create_Tables():
 
     conn.close()
 
-def AdminLogin():
+def adminValidator(username,password,validation):
+        conn = sqlite3.connect('Mincrete.db')
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM Login_details where Username=? and Password=?",
+                       ("Richard", validation))
+        row = cursor.fetchall()
+        result = len(row)
+        if result == 1:
+            insertdata(username,password)
+        else:
+            messagebox.showinfo("info", "Signup failed")
+        pass
+
+def insertdata(username,password):
     # inserting data into parent table DEPRATEMENTS
     # Enter values using input statements
 
     conn = sqlite3.connect('Mincrete.db')
     # insert data into database table
     # conn.execute('''insert into Login_details  (Username, Password) values (?, ?)''', )
-    conn.execute('''insert into Login_details  (Username, Password) values (?, ?)''',("Admin","Password"))
+    conn.execute('''insert into Login_details  (Username, Password) values (?, ?)''',(username,password))
 
     conn.commit()  # do not forget to commit the data (i.e. save the data on the table
+    messagebox.showinfo("info", "signup was successful")
     conn.close()
 
 
-
-def SignUp():
+def insertdata():
 
     conn = sqlite3.connect('Mincrete.db')
-    conn.execute('''insert into Login_details  (Username, Password) values (?, ?)''')
+    conn.execute('''insert into Login_details  (Username, Password) values (?, ?)''',("Richard","Concrete"))
 
-    conn.commit()
+    conn.commit()  # do not forget to commit the data (i.e. save the data on the table
+    messagebox.showinfo("info", "signup was successful")
     conn.close()
-
-
-
-
 
 
 
