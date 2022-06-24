@@ -2,6 +2,7 @@
 import sqlite3
 from tkinter import *
 from tkinter import messagebox
+from Gui import *
 
 def Create_Tables():
     # creating table Staff
@@ -45,7 +46,7 @@ def insertdata(username,password):
     conn.close()
 
 
-def insertdata():
+def adminpass():
 
     conn = sqlite3.connect('Mincrete.db')
     conn.execute('''insert into Login_details  (Username, Password) values (?, ?)''',("Richard","Concrete"))
@@ -78,7 +79,7 @@ def username_validation(username, password):
 
 
 
-Create_Tables()
+
 
 if __name__ == "__main__":
     pass

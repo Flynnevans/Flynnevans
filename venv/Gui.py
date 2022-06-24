@@ -1,6 +1,28 @@
 from tkinter import *
 from loginSignup import *
 
+def windowswap(close, open):
+    close
+    open
+
+def homepage():
+    home = Tk()
+    home.title("home")
+    home.geometry("550x350")
+    home.config(bg="#728c8d")
+    my_menu = Menu(home)
+    home.config(menu=my_menu)
+
+    file_menu = Menu(my_menu)
+    my_menu.add_cascade(label="File", menu=file_menu)
+    file_menu.add_command(label="Back To Main", command=lambda:mainpage_GUI())
+    file_menu.add_separator()
+    #file_menu.add_command(label="Exit", command=home.destroy())
+
+    home.mainloop()
+
+
+
 def signup_window():
 
     signup = Tk()
@@ -49,7 +71,8 @@ def signup_window():
                     command=lambda: adminValidator(Userinput.get(), Passinput.get(), Adinput.get()))
     signup_button.grid(row=0, column=0, padx=10, pady=10, sticky="E")
 
-    back_button = Button(buttonFrame, text="Back", width=8, height=2, bg="#C6CFFF", command=signup.destroy)
+    back_button = Button(buttonFrame, text="Back", width=8, height=2, bg="#C6CFFF",
+                         command=lambda: windowswap(signup.destroy(), mainpage_GUI()))
     back_button.grid(row=0, column=2, padx=10, pady=10, sticky="E")
 
     mainloop()
@@ -95,7 +118,8 @@ def login_window():
                          command=lambda: username_validation(Userinput.get(), Passinput.get()))
     login_button.grid(row=0, column=0, padx=10, pady=10, sticky="E")
 
-    back_button = Button(buttonFrame, text="Back", width=8, height=2, bg="#C6CFFF", command=login_page.destroy)
+    back_button = Button(buttonFrame, text="Back", width=8, height=2, bg="#C6CFFF",
+                         command=lambda: windowswap(login_page.destroy(), mainpage_GUI()))
     back_button.grid(row=0, column=2, padx=10, pady=10, sticky="E")
 
     mainloop()
@@ -117,13 +141,16 @@ def mainpage_GUI():
     exit_lable = Button(page, text="Exit", width = 15,height= 3 ,command = quit, bg= "#C6CFFF")
     exit_lable.grid(row=2, column =0 , padx=10 , pady=10, sticky = "S")
 
-    login_lable = Button(page, text="Login", width=15, height=3, bg="#C6CFFF", command=login_window)
+    login_lable = Button(page, text="Login", width=15, height=3, bg="#C6CFFF",
+                         command=lambda: windowswap(page.destroy(), login_window()))
     login_lable.grid(row=2, column=1, padx=10, pady=10, sticky="S")
 
-    signup_lable = Button(page, text="Signup", width=15, height=3, bg="#C6CFFF", command = signup_window)
+    signup_lable = Button(page, text="Signup", width=15, height=3, bg="#C6CFFF",
+                          command= lambda: windowswap(page.destroy(), signup_window()))
     signup_lable.grid(row=2, column=2, padx=10, pady=10, sticky="E")
 
 
     page.mainloop()
 
-mainpage_GUI()
+homepage()
+#mainpage_GUI()
