@@ -152,5 +152,5 @@ def mainpage_GUI():
 
     page.mainloop()
 
-homepage()
-#mainpage_GUI()
+#homepage()
+mainpage_GUI()
