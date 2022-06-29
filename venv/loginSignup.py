@@ -2,7 +2,7 @@
 import sqlite3
 from tkinter import *
 from tkinter import messagebox
-from Gui import *
+#from Gui import homepage
 
 def Create_Tables():
     # creating table Staff
@@ -68,6 +68,7 @@ def username_validation(username, password):
     result = len(row)
     if result == 1:
         messagebox.showinfo("info", "login success")
+        #Gui.homepage()
     else:
         messagebox.showinfo("info", "login failed")
     pass
@@ -78,8 +79,8 @@ def username_validation(username, password):
 
 
 
-
-
+#Create_Tables()
+#adminpass()
 
 if __name__ == "__main__":
     pass

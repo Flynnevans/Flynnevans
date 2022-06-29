@@ -13,11 +13,23 @@ def homepage():
     my_menu = Menu(home)
     home.config(menu=my_menu)
 
-    file_menu = Menu(my_menu)
-    my_menu.add_cascade(label="File", menu=file_menu)
-    file_menu.add_command(label="Back To Main", command=lambda:mainpage_GUI())
-    file_menu.add_separator()
-    #file_menu.add_command(label="Exit", command=home.destroy())
+    welcomelabel = Label(home, text="Welcome to mincrete")
+    welcomelabel.config(font=("arial", 20))
+    welcomelabel.config(bg="#728c8d")
+    welcomelabel.grid(row=0, column=1, columnspan=1, sticky="NSEW", pady=10, padx=10)
+
+    home_menu = Menu(my_menu)
+    orders_menu = Menu(my_menu)
+    calculator_menu = Menu(my_menu)
+    schedule_menu = Menu(my_menu)
+
+    my_menu.add_cascade(label="Home", menu=home_menu)
+    my_menu.add_cascade(label="Orders", menu=orders_menu)
+    my_menu.add_cascade(label="Calculator", menu=calculator_menu)
+    my_menu.add_cascade(label="Schedule", menu=schedule_menu)
+
+    home_menu.add_command (label="Home", command=lambda: windowswap(home.destroy(),homepage()))
+    home_menu.add_command (label="Exit", command=lambda: home.destroy())
 
     home.mainloop()
 
@@ -152,5 +164,5 @@ def mainpage_GUI():
 
     page.mainloop()
 
-#homepage()
+# homepage()
 mainpage_GUI()
