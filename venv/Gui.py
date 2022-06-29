@@ -14,9 +14,14 @@ def homepage():
     home.config(menu=my_menu)
 
     file_menu = Menu(my_menu)
-    my_menu.add_cascade(label="File", menu=file_menu)
-    file_menu.add_command(label="Back To Main", command=lambda:mainpage_GUI())
-    file_menu.add_separator()
+    my_menu.add_cascade(label="Return", menu=file_menu)
+    my_menu.add_cascade(label="Accounts", menu=file_menu)
+    my_menu.add_cascade(label="Orders", menu=file_menu)
+    my_menu.add_cascade(label="Calculator", menu=file_menu)
+    my_menu.add_cascade(label="Schedule", menu=file_menu)
+    #account_menu.add_command(label="Edit Account")
+    #file_menu.add_separator()
+    # account_menu.add_command(label="Delete Account")
     #file_menu.add_command(label="Exit", command=home.destroy())
 
     home.mainloop()
@@ -152,5 +157,5 @@ def mainpage_GUI():
 
     page.mainloop()
 
-#homepage()
-mainpage_GUI()
+homepage()
+#mainpage_GUI()
