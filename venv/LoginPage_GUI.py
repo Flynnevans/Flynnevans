@@ -135,4 +135,4 @@ def mainpage_GUI():
 
     page.mainloop()
 
-
+mainpage_GUI()
