@@ -2,6 +2,7 @@ from tkinter import *
 import sqlite3
 from time import strftime
 from tkinter import messagebox
+from loginSignup import insertdata
 
 def windowswap(close, open):
     close
@@ -37,7 +38,7 @@ def account_add():
     password_label.grid(row=1, column=0, columnspan=1, sticky="NE", pady=10, padx=10)
 
     create_button = Button(buttonFrame, text="Create account", width=12, height=3, bg="#C6CFFF",
-                        command=lambda:
+                        command= lambda: insertdata(User_input, Pass_input))
     create_button.grid(row=1, column=2, padx=25, pady=10)
 
 def accountsPage():
