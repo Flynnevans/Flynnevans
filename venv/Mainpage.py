@@ -38,7 +38,7 @@ def account_add():
     password_label.grid(row=1, column=0, columnspan=1, sticky="NE", pady=10, padx=10)
 
     create_button = Button(buttonFrame, text="Create account", width=12, height=3, bg="#C6CFFF",
-                        command= lambda: insertdata(User_input, Pass_input))
+                        command= lambda: insertdata(Userinput.get(), Passinput.get()))
     create_button.grid(row=1, column=2, padx=25, pady=10)
 
 def accountsPage():

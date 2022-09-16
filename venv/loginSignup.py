@@ -38,7 +38,7 @@ def insertdata(username1,password1):
     conn = sqlite3.connect('Mincrete.db')
     # insert data into database table
     # conn.execute('''insert into Login_details  (Username, Password) values (?, ?)''', )
-    conn.execute('''insert into Login_details  (Username, Password) values (?, ?)''',("flynn","evans"))
+    conn.execute('''insert into Login_details  (Username, Password) values (?, ?)''',(username1,password1))
 
     conn.commit()  # do not forget to commit the data (i.e. save the data on the table
     messagebox.showinfo("info", "signup was successful")
@@ -79,8 +79,8 @@ def username_validation(username, password):
 
 
 
-Create_Tables()
-# adminpass()
+#Create_Tables()
+#adminpass()
 # insertdata("hi","bye")
 
 if __name__ == "__main__":
