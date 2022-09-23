@@ -73,10 +73,12 @@ def username_validation(username, password):
         messagebox.showinfo("info", "login failed")
     pass
 
-delete_name = input("enter nm")
+#delete_name = input("enter name")
 conn = sqlite3.connect('test.db')
 cursor = conn.cursor()
-cursor.execute('''DELETE FROM Login_details WHERE Username = ?''',[delete_name])
+cursor.execute('''DELETE FROM Login_details where Username=? and password=?''',
+               ("Richevs","Concrete"))
+conn.close()
 
 
 
