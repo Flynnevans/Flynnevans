@@ -41,6 +41,83 @@ def account_add():
                         command= lambda: insertdata(Userinput.get(), Passinput.get()))
     create_button.grid(row=1, column=2, padx=25, pady=10)
 
+    accounts_add.mainloop()
+
+def updatepass_user(username, newpass):
+    conn = sqlite3.connect('Mincrete.db')
+    cursor = conn.cursor()
+    cursor.execute("UPDATE Login_details Set Password = ? WHERE Username = ?", newpass, username)
+    conn.commit()
+    messagebox.showinfo("info", "signup was successful")
+    conn.close()
+
+
+def pass_editor(username, password1):
+    pass_edit = Tk()
+    pass_edit.title("Editor")
+    pass_edit.geometry("300x150")
+    pass_edit.config(bg="#728c8d")
+
+    textFrame = Frame(pass_edit, bg="#728c8d", width="200", height="90")
+    textFrame.grid(column=0, row=0)
+    buttonFrame = Frame(pass_edit, bg="#728c8d", width="200", height="60")
+    buttonFrame.grid(column=0, row=1)
+
+    newPass_input = StringVar()
+    newPassinput = Entry(textFrame, width=15, bg="#aaaaaa", textvariable=newPass_input)
+    newPassinput.grid(row=1, column=1, padx=10, pady=10)
+
+    password_label = Label(textFrame, text="New Password:")
+    password_label.config(font=("arial", 9), bg="#728c8d")
+    password_label.grid(row=1, column=0, columnspan=1, sticky="NE", pady=10, padx=10)
+
+    conn = sqlite3.connect('Mincrete.db')
+    cursor = conn.cursor()
+
+    edit_pass_button = Button(buttonFrame, text="Edit Password", width=12, height=3, bg="#C6CFFF",
+                              command=lambda: updatepass_user(username,newPass_input))
+    edit_pass_button.grid(row=1, column=1, padx=25, pady=10)
+
+
+
+
+def account_edit():
+    accounts_edit = Tk()
+    accounts_edit.title("Edit")
+    accounts_edit.geometry("300x150")
+    accounts_edit.config(bg="#728c8d")
+
+    textFrame = Frame(accounts_edit, bg="#728c8d", width="200", height="90")
+    textFrame.grid(column=0, row=0)
+    buttonFrame = Frame(accounts_edit, bg="#728c8d", width="200", height="60")
+    buttonFrame.grid(column=0, row=1)
+
+    User_input = StringVar()
+    Userinput = Entry(textFrame, width=15, bg="#aaaaaa", textvariable=User_input)
+    Userinput.grid(row=0, column=1, padx=10, pady=10)
+
+    Pass_input = StringVar()
+    Passinput = Entry(textFrame, width=15, bg="#aaaaaa", textvariable=Pass_input)
+    Passinput.grid(row=1, column=1, padx=10, pady=10)
+
+    username_label = Label(textFrame, text="Username:")
+    username_label.config(font=("arial", 9), bg="#728c8d")
+    username_label.grid(row=0, column=0, columnspan=1, sticky="NE", pady=10, padx=10)
+
+    password_label = Label(textFrame, text="Password:")
+    password_label.config(font=("arial", 9), bg="#728c8d")
+    password_label.grid(row=1, column=0, columnspan=1, sticky="NE", pady=10, padx=10)
+
+    editpass_button = Button(buttonFrame, text="Edit password", width=12, height=3, bg="#C6CFFF",
+                           command=lambda: (pass_editor(Userinput.get(), Passinput.get())))
+    editpass_button.grid(row=1, column=2, padx=25, pady=10)
+
+    edit_user_button = Button(buttonFrame, text="Edit username", width=12, height=3, bg="#C6CFFF",
+                         command=lambda: (editor(Userinput.get(), Passinput.get())))
+    edit_user_button.grid(row=1, column=1, padx=25, pady=10)
+
+    accounts_edit.mainloop()
+
 def accountsPage():
 
 
