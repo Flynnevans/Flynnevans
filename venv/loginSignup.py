@@ -2,7 +2,6 @@
 import sqlite3
 from tkinter import *
 from tkinter import messagebox
-from Mainpage import homepage
 
 def Create_Tables():
     # creating table Staff
@@ -32,14 +31,14 @@ def adminValidator(username,password,validation):
             messagebox.showinfo("info", "Signup failed")
         pass
 
-def insertdata(username,password):
+def insertdata(username1,password1):
     # inserting data into parent table DEPRATEMENTS
     # Enter values using input statements
 
     conn = sqlite3.connect('Mincrete.db')
     # insert data into database table
     # conn.execute('''insert into Login_details  (Username, Password) values (?, ?)''', )
-    conn.execute('''insert into Login_details  (Username, Password) values (?, ?)''',(username,password))
+    conn.execute('''insert into Login_details  (Username, Password) values (?, ?)''',(username1,password1))
 
     conn.commit()  # do not forget to commit the data (i.e. save the data on the table
     messagebox.showinfo("info", "signup was successful")
@@ -60,7 +59,7 @@ def adminpass():
 
 
 def username_validation(username, password):
-    # from Mainpage import homepage
+    from Mainpage import homepage
     conn = sqlite3.connect('Mincrete.db')
     cursor=conn.cursor()
     cursor.execute("SELECT * FROM Login_details where Username=? and Password=?",
@@ -80,8 +79,9 @@ def username_validation(username, password):
 
 
 
-# Create_Tables()
-# adminpass()
+#Create_Tables()
+#adminpass()
+# insertdata("hi","bye")
 
 if __name__ == "__main__":
     pass
