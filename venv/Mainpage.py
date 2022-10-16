@@ -8,6 +8,134 @@ def windowswap(close, open):
     close
     open
 
+def order_details():
+    orderDet = Tk()
+    orderDet.title("Order Details")
+    orderDet.geometry("350x470")
+    orderDet.config(bg="#728c8d")
+
+    titleFrame = Frame(orderDet, bg="#728c8d", width="350", height="50")
+    titleFrame.grid(column=0, row=0)
+    detailsFrame = Frame(orderDet, bg="#728c8d", width="350", height="300")
+    detailsFrame.grid(column=0, row=1)
+    dateframe = Frame(orderDet, bg="#728c8d", width="350", height="50")
+    dateframe.grid(column=0, row=2)
+    buttonFrame = Frame(orderDet, bg="#728c8d", width="350", height="100")
+    buttonFrame.grid(column=0, row=3)
+
+    welcomelabel = Label(titleFrame, text="Order Details")
+    welcomelabel.config(font=("arial", 20))
+    welcomelabel.config(bg="#728c8d", justify='center')
+    welcomelabel.grid(row=0, column=0, columnspan=1, sticky="E", pady=30, padx=60)
+
+    length_label = Label(detailsFrame, text="Length(M):")
+    length_label.config(font=("arial", 9), bg="#728c8d")
+    length_label.grid(row=0, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    length_input = StringVar()
+    lengthinput = Entry(detailsFrame, width=15, bg="#aaaaaa", textvariable=length_input)
+    lengthinput.grid(row=0, column=1, padx=10, pady=10)
+    # -----------------------------
+
+    width_label = Label(detailsFrame, text="Width(M):")
+    width_label.config(font=("arial", 9), bg="#728c8d")
+    width_label.grid(row=1, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    width_input = StringVar()
+    widthinput = Entry(detailsFrame, width=15, bg="#aaaaaa", textvariable=width_input)
+    widthinput.grid(row=1, column=1, padx=10, pady=10)
+    # -------------------------------
+
+    depth_label = Label(detailsFrame, text="Depth(M):")
+    depth_label.config(font=("arial", 9), bg="#728c8d")
+    depth_label.grid(row=2, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    depth_input = StringVar()
+    depthinput = Entry(detailsFrame, width=15, bg="#aaaaaa", textvariable=depth_input)
+    depthinput.grid(row=2, column=1, padx=10, pady=10)
+    # -------------------------------
+
+    concrete_label = Label(detailsFrame, text="Concrete:")
+    concrete_label.config(font=("arial", 9), bg="#728c8d")
+    concrete_label.grid(row=3, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    options = ["Gen1 S2",
+               "Gen3 S2",
+               "C16/20 S2",
+               "C20/25 S2",
+               "C25/30 S2",
+               "C28/35 S2",
+               "RC28/35 S2",
+               "C32/40 S2"]
+
+    Con_type_input = StringVar()
+    Con_type_input.set("CEM1 ")
+    Con_typeinput = OptionMenu(detailsFrame, Con_type_input, *options)
+    Con_typeinput.config(bg="#aaaaaa")
+    Con_typeinput.grid(row=3, column=1, padx=10, pady=10)
+
+    # -------------------------------
+
+    date_label = Label(dateframe, text="Date:")
+    date_label.config(font=("arial", 9), bg="#728c8d")
+    date_label.grid(row=0, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    days = ["01","02","03","04","05","06","07","08","09","10",
+            "11","12","13","14","15","16","17","18",
+            "19","20","21","22","23","24","25","26",
+            "27","28","29","30","31"]
+
+    day_input = StringVar()
+    day_input.set("DD")
+    dayinput = OptionMenu(dateframe, day_input, *days)
+    dayinput.config(bg="#aaaaaa")
+    dayinput.grid(row=0, column=1, padx=5, pady=10)
+
+
+    month = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
+            "11", "12"]
+
+    month_input = StringVar()
+    month_input.set("MM")
+    monthinput = OptionMenu(dateframe, month_input, *month)
+    monthinput.config(bg="#aaaaaa")
+    monthinput.grid(row=0, column=2, padx=5, pady=10)
+
+
+
+    year = ["2022", "2023", "2024", "2025", "2026", "2027", "2028",]
+
+    year_input = StringVar()
+    year_input.set("YYYY")
+    yearinput = OptionMenu(dateframe, year_input, *year)
+    yearinput.config(bg="#aaaaaa")
+    yearinput.grid(row=0, column=3, padx=5, pady=10)
+    # -------------------------------
+
+    Accepted_label = Label(dateframe, text="Order Now?:")
+    Accepted_label.config(font=("arial", 9), bg="#728c8d")
+    Accepted_label.grid(row=1, column=1, columnspan=1, sticky="N", pady=10, padx=10)
+
+    accepted_input = StringVar()
+    accepted_input.set("Y/N")
+    acceptedinput = OptionMenu(dateframe, accepted_input, "Yes","No")
+    acceptedinput.config(bg="#aaaaaa")
+    acceptedinput.grid(row=1, column=2, padx=10, pady=10)
+
+
+
+    confirm_button = Button(buttonFrame, text="Confirm", width=12, height=3, bg="#C6CFFF",
+                          command=lambda: storeDetails())
+    confirm_button.grid(row=0, column=0, padx=25, pady=10)
+
+    return_button = Button(buttonFrame, text="Return", width=12, height=3, bg="#C6CFFF",
+                           command=lambda: windowswap(orderDet.destroy(), new_customerwindow()))
+    return_button.grid(row=0, column=1, padx=25, pady=10)
+
+    orderDet.mainloop()
+
+
+
 
 
 def new_customerwindow():
@@ -58,7 +186,7 @@ def new_customerwindow():
     addressinput.grid(row=2, column=1, padx=10, pady=10)
     # -------------------------------
 
-    postcode_label = Label(detailsFrame, text="postcode:")
+    postcode_label = Label(detailsFrame, text="Postcode:")
     postcode_label.config(font=("arial", 9), bg="#728c8d")
     postcode_label.grid(row=3, column=0, columnspan=1, sticky="N", pady=10, padx=10)
 
@@ -79,7 +207,7 @@ def new_customerwindow():
 
 
     order_button = Button(buttonFrame, text="Create Order", width=12, height=3, bg="#C6CFFF",
-                           command=lambda: storeDetails())
+                           command=lambda: windowswap(newcustomer.destroy(), order_details()))
     order_button.grid(row=0, column=0, padx=25, pady=10)
 
     return_button = Button(buttonFrame, text="Return Home", width=12, height=3, bg="#C6CFFF",
@@ -355,7 +483,7 @@ def homepage():
     home.mainloop()
 
 
-new_customerwindow()
+order_details()
 
 
 
