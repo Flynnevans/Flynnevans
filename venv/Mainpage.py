@@ -80,22 +80,22 @@ def order_details():
     date_label.config(font=("arial", 9), bg="#728c8d")
     date_label.grid(row=0, column=0, columnspan=1, sticky="N", pady=10, padx=10)
 
-    days = ["01","02","03","04","05","06","07","08","09","10",
+    days = ["1","2","3","4","5","6","7","8","9","10",
             "11","12","13","14","15","16","17","18",
             "19","20","21","22","23","24","25","26",
             "27","28","29","30","31"]
 
-    day_input = StringVar()
+    day_input = IntVar()
     day_input.set("DD")
     dayinput = OptionMenu(dateframe, day_input, *days)
     dayinput.config(bg="#aaaaaa")
     dayinput.grid(row=0, column=1, padx=5, pady=10)
 
 
-    month = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10",
+    month = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
             "11", "12"]
 
-    month_input = StringVar()
+    month_input = IntVar()
     month_input.set("MM")
     monthinput = OptionMenu(dateframe, month_input, *month)
     monthinput.config(bg="#aaaaaa")
@@ -105,7 +105,7 @@ def order_details():
 
     year = ["2022", "2023", "2024", "2025", "2026", "2027", "2028",]
 
-    year_input = StringVar()
+    year_input = IntVar()
     year_input.set("YYYY")
     yearinput = OptionMenu(dateframe, year_input, *year)
     yearinput.config(bg="#aaaaaa")
@@ -122,10 +122,21 @@ def order_details():
     acceptedinput.config(bg="#aaaaaa")
     acceptedinput.grid(row=1, column=2, padx=10, pady=10)
 
+    def orderlist():
+        global orderdetails
+        length = length_input.get()
+        width = width_input.get()
+        depth = depth_input.get()
+        concrete = Con_type_input.get()
+        accepted = accepted_input.get()
+        day = day_input.get()
+        month = month_input.get()
+        year = year_input.get()
+        orderdetails = [length,width,depth,concrete,accepted,day,month,year]
 
 
     confirm_button = Button(buttonFrame, text="Confirm", width=12, height=3, bg="#C6CFFF",
-                          command=lambda: storeDetails())
+                          command=lambda: orderlist())
     confirm_button.grid(row=0, column=0, padx=25, pady=10)
 
     return_button = Button(buttonFrame, text="Return", width=12, height=3, bg="#C6CFFF",
@@ -206,8 +217,20 @@ def new_customerwindow():
 
 
 
+    def customerlist():
+        global customerdetails
+        fname = firstName_input.get()
+        sname = surname_input.get()
+        address = address_input.get()
+        postcode = postcode_input.get()
+        phonenumber = phone_input.get()
+        customerdetails = [fname,sname,address,postcode,phonenumber]
+
+
+
+
     order_button = Button(buttonFrame, text="Create Order", width=12, height=3, bg="#C6CFFF",
-                           command=lambda: windowswap(newcustomer.destroy(), order_details()))
+                           command=lambda: customerlist())
     order_button.grid(row=0, column=0, padx=25, pady=10)
 
     return_button = Button(buttonFrame, text="Return Home", width=12, height=3, bg="#C6CFFF",
