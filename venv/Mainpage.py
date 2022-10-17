@@ -28,29 +28,29 @@ def order_details():
     welcomelabel.config(bg="#728c8d", justify='center')
     welcomelabel.grid(row=0, column=0, columnspan=1, sticky="E", pady=30, padx=60)
 
-    length_label = Label(detailsFrame, text="Length(M):")
+    length_label = Label(detailsFrame, text="Length(CM):")
     length_label.config(font=("arial", 9), bg="#728c8d")
     length_label.grid(row=0, column=0, columnspan=1, sticky="N", pady=10, padx=10)
 
-    length_input = StringVar()
+    length_input = IntVar()
     lengthinput = Entry(detailsFrame, width=15, bg="#aaaaaa", textvariable=length_input)
     lengthinput.grid(row=0, column=1, padx=10, pady=10)
     # -----------------------------
 
-    width_label = Label(detailsFrame, text="Width(M):")
+    width_label = Label(detailsFrame, text="Width(CM):")
     width_label.config(font=("arial", 9), bg="#728c8d")
     width_label.grid(row=1, column=0, columnspan=1, sticky="N", pady=10, padx=10)
 
-    width_input = StringVar()
+    width_input = IntVar()
     widthinput = Entry(detailsFrame, width=15, bg="#aaaaaa", textvariable=width_input)
     widthinput.grid(row=1, column=1, padx=10, pady=10)
     # -------------------------------
 
-    depth_label = Label(detailsFrame, text="Depth(M):")
+    depth_label = Label(detailsFrame, text="Depth(CM):")
     depth_label.config(font=("arial", 9), bg="#728c8d")
     depth_label.grid(row=2, column=0, columnspan=1, sticky="N", pady=10, padx=10)
 
-    depth_input = StringVar()
+    depth_input = IntVar()
     depthinput = Entry(detailsFrame, width=15, bg="#aaaaaa", textvariable=depth_input)
     depthinput.grid(row=2, column=1, padx=10, pady=10)
     # -------------------------------
@@ -133,6 +133,22 @@ def order_details():
         month = month_input.get()
         year = year_input.get()
         orderdetails = [length,width,depth,concrete,accepted,day,month,year]
+        volume = (length * width * depth)/1000000
+
+
+
+
+
+        messagetext = ((volume) ," Cubic meters of ",concrete," to be delivered on ", (day), "/",(month),"/",(year))
+
+        result = messagebox.askquestion('Confirm', messagetext)
+        if result == 'yes':
+            fill()
+        else:
+            fill()
+
+
+
 
 
     confirm_button = Button(buttonFrame, text="Confirm", width=12, height=3, bg="#C6CFFF",
@@ -225,6 +241,7 @@ def new_customerwindow():
         postcode = postcode_input.get()
         phonenumber = phone_input.get()
         customerdetails = [fname,sname,address,postcode,phonenumber]
+        windowswap(newcustomer.destroy(), order_details())
 
 
 
