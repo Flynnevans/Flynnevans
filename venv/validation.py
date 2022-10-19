@@ -1,5 +1,6 @@
 #validation only
 from datetime import datetime
+import re
 #this procedure validates the length of given data such as phone numbers
 #the paremeters is the data, the length set, and which type of validation
 def len_validation(data,length,option):
@@ -34,6 +35,17 @@ def validate_date(date_time):
         return True
     except ValueError:
         return False
+
+
+
+def isvalidEmail(emailad):
+   pat = "^[a-zA-Z0-9-_]+@[a-zA-Z0-9]+\.[a-z]{1,3}$"
+   if re.match(pat,emailad):
+      return True
+   return False
+
+
+
 
 
 

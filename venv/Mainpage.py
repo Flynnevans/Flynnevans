@@ -3,6 +3,7 @@ import sqlite3
 from time import strftime
 from tkinter import messagebox
 from loginSignup import insertdata
+import validation
 
 def windowswap(close, open):
     close
@@ -11,12 +12,12 @@ def windowswap(close, open):
 def order_details():
     orderDet = Tk()
     orderDet.title("Order Details")
-    orderDet.geometry("350x470")
+    orderDet.geometry("350x525")
     orderDet.config(bg="#728c8d")
 
     titleFrame = Frame(orderDet, bg="#728c8d", width="350", height="50")
     titleFrame.grid(column=0, row=0)
-    detailsFrame = Frame(orderDet, bg="#728c8d", width="350", height="300")
+    detailsFrame = Frame(orderDet, bg="#728c8d", width="350", height="350")
     detailsFrame.grid(column=0, row=1)
     dateframe = Frame(orderDet, bg="#728c8d", width="350", height="50")
     dateframe.grid(column=0, row=2)
@@ -112,18 +113,38 @@ def order_details():
     yearinput.grid(row=0, column=3, padx=5, pady=10)
     # -------------------------------
 
-    Accepted_label = Label(dateframe, text="Order Now?:")
-    Accepted_label.config(font=("arial", 9), bg="#728c8d")
-    Accepted_label.grid(row=1, column=1, columnspan=1, sticky="N", pady=10, padx=10)
+    time_label = Label(detailsFrame, text="Time(HH:MM):")
+    time_label.config(font=("arial", 9), bg="#728c8d")
+    time_label.grid(row=4, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    time_input = StringVar()
+    timeinput = Entry(detailsFrame, width=15, bg="#aaaaaa", textvariable=time_input)
+    timeinput.grid(row=4, column=1, padx=10, pady=10)
+
+    AMPM_input = StringVar()
+    AMPM_input.set("AM/PM")
+    AMPMinput = OptionMenu(detailsFrame, AMPM_input, "AM", "PM")
+    AMPMinput.config(bg="#aaaaaa")
+    AMPMinput.grid(row=4, column=2, padx=10, pady=10)
+
+
+
+    #-----------------------------------
+
+    accepted_label = Label(dateframe, text="Accepted:")
+    accepted_label.config(font=("arial", 9), bg="#728c8d")
+    accepted_label.grid(row=2, column=1, columnspan=1, sticky="N", pady=10, padx=10)
 
     accepted_input = StringVar()
     accepted_input.set("Y/N")
     acceptedinput = OptionMenu(dateframe, accepted_input, "Yes","No")
     acceptedinput.config(bg="#aaaaaa")
-    acceptedinput.grid(row=1, column=2, padx=10, pady=10)
+    acceptedinput.grid(row=2, column=2, padx=10, pady=10)
 
     def orderlist():
         global orderdetails
+        AMPM = AMPM_input.get()
+        time = time_input.get()
         length = length_input.get()
         width = width_input.get()
         depth = depth_input.get()
@@ -132,20 +153,26 @@ def order_details():
         day = day_input.get()
         month = month_input.get()
         year = year_input.get()
-        orderdetails = [length,width,depth,concrete,accepted,day,month,year]
+
+        # validate
+
+
+        orderdetails = [length,width,depth,concrete,accepted,day,month,year,time,AMPM]
+
+        # save on database
         volume = (length * width * depth)/1000000
 
 
 
 
 
-        messagetext = ((volume) ," Cubic meters of ",concrete," to be delivered on ", (day), "/",(month),"/",(year))
+        messagetext = ((volume) ," Cubic meters of ",concrete," to be delivered on ", (day), "/",(month),"/",(year), " at", (time),(AMPM))
 
         result = messagebox.askquestion('Confirm', messagetext)
         if result == 'yes':
-            fill()
+            ignore()
         else:
-            fill()
+            ignore()
 
 
 
@@ -239,9 +266,10 @@ def new_customerwindow():
         sname = surname_input.get()
         address = address_input.get()
         postcode = postcode_input.get()
-        phonenumber = phone_input.get()
-        customerdetails = [fname,sname,address,postcode,phonenumber]
-        windowswap(newcustomer.destroy(), order_details())
+        if validation.len_validation(phone_input.get(),11,1) == True:
+            print("yes")
+        #customerdetails = [fname,sname,address,postcode,phonenumber]
+        #windowswap(newcustomer.destroy(), order_details())
 
 
 
