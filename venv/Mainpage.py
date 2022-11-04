@@ -104,7 +104,7 @@ def order_details():
 
 
 
-    year = ["2022", "2023", "2024", "2025", "2026", "2027", "2028",]
+    year = ["2022", "2023"]
 
     year_input = IntVar()
     year_input.set("YYYY")
@@ -258,6 +258,16 @@ def new_customerwindow():
     phoneinput = Entry(detailsFrame, width=15, bg="#aaaaaa", textvariable=phone_input)
     phoneinput.grid(row=4, column=1, padx=10, pady=10)
 
+    #----------------------------------
+
+    email_label = Label(detailsFrame, text="Email Address:")
+    email_label.config(font=("arial", 9), bg="#728c8d")
+    email_label.grid(row=5, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    email_input = StringVar()
+    emailinput = Entry(detailsFrame, width=15, bg="#aaaaaa", textvariable=email_input)
+    emailinput.grid(row=5, column=1, padx=10, pady=10)
+
 
 
     def customerlist():
@@ -265,11 +275,25 @@ def new_customerwindow():
         fname = firstName_input.get()
         sname = surname_input.get()
         address = address_input.get()
-        postcode = postcode_input.get()
-        if validation.len_validation(phone_input.get(),11,1) == True:
-            print("yes")
-        #customerdetails = [fname,sname,address,postcode,phonenumber]
-        #windowswap(newcustomer.destroy(), order_details())
+
+        if validation.postcodeIsValid(postcode_input.get()) == True:
+            postcode = postcode_input.get()
+
+            if validation.len_validation(phone_input.get(),11,1) == True:
+                phonenumber = phone_input.get()
+
+                if validation.isvalidEmail(email_input.get()) == True:
+                    email = email_input.get()
+
+                    customerdetails = [fname,sname,address,postcode,phonenumber,email]
+                    windowswap(newcustomer.destroy(), order_details())
+                else:
+                    messagebox.showinfo("info", "Email address was invalid")
+            else:
+                messagebox.showinfo("info", "Phone number was invalid")
+        else:
+            messagebox.showinfo("info", "Postcode was invalid / out of range")
+
 
 
 

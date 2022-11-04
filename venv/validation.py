@@ -1,6 +1,24 @@
 #validation only
 from datetime import datetime
 import re
+import postcodes_uk
+
+2 or 4 or 6 or 9 or 11
+def isValid_date(day,month,year):
+    if day == (31) and month == 2
+
+
+
+
+
+def postcodeIsValid(postcode):
+    postcode = postcode.upper()
+    if postcode[0] == "S" and postcode[1] == "T":
+        return(postcodes_uk.validate(postcode))
+    else:
+        return False
+
+
 #this procedure validates the length of given data such as phone numbers
 #the paremeters is the data, the length set, and which type of validation
 def len_validation(data,length,option):
