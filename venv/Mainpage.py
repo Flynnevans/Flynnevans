@@ -93,7 +93,7 @@ def order_details():
     dayinput.grid(row=0, column=1, padx=5, pady=10)
 
 
-    month = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+    month = ["1", "2", "3", "4", "5", "6", "7", "08", "09", "10",
             "11", "12"]
 
     month_input = IntVar()
@@ -141,38 +141,78 @@ def order_details():
     acceptedinput.config(bg="#aaaaaa")
     acceptedinput.grid(row=2, column=2, padx=10, pady=10)
 
+
+
     def orderlist():
         global orderdetails
-        AMPM = AMPM_input.get()
-        time = time_input.get()
-        length = length_input.get()
-        width = width_input.get()
-        depth = depth_input.get()
-        concrete = Con_type_input.get()
-        accepted = accepted_input.get()
-        day = day_input.get()
-        month = month_input.get()
-        year = year_input.get()
-
-        # validate
 
 
-        orderdetails = [length,width,depth,concrete,accepted,day,month,year,time,AMPM]
+        if AMPM_input.get() == "AM" and int(time_input.get()[0:1]) < 7:
+            messagebox.showinfo("info", "invalid time")
+
+        if AMPM_input.get() == "PM":
+            if int(time_input.get()[0:1]) >= 5 and int(time_input.get()[0:1]) != 12:
+                messagebox.showinfo("info", "invalid time")
+
+        if int(time_input.get()[0:1]) > 12:
+            messagebox.showinfo("info", "invalid time")
+
+        if int(time_input.get()[3:5]) > 59:
+            messagebox.showinfo("info", "invalid time")
+
+        else:
+            volume = (length_input.get() * width_input.get() * depth_input.get()) / 1000000
+            if volume > 6:
+                messagebox.showinfo("Warning", "Additional delivery charge will be added as extra mixer will be needed")
+
+            else:
+                if Con_type_input.get() == "CEM1 ":
+                    messagebox.showinfo("info",
+                                        "No concrete type has been entered")
+
+                    a = strftime('%x')
+                    if int(a[6:7]) < int(year_input.get()):
+                        print("year is valid")
+                    elif int(a[6:7]) == int(year_input.get()):
+                        print("same year")
+                    #check if the month is greater, then its always valid
+                    #else check if the month is the same
+                    #if it is, check if the day is greater, if it is the date chosen is valid.
+
+                else:
+                    AMPM = AMPM_input.get()
+                    time = time_input.get()
+                    length = length_input.get()
+                    width = width_input.get()
+                    depth = depth_input.get()
+                    concrete = Con_type_input.get()
+                    accepted = accepted_input.get()
+                    day = day_input.get()
+                    month = month_input.get()
+                    year = year_input.get()
+
+                    orderdetails = [length, width, depth, concrete, accepted, day, month, year, time, AMPM]
+
+                    messagetext = ((volume), " Cubic meters of ", concrete, " to be delivered on ", (day), "/",
+                                   (month), "/", (year), " at",(time), (AMPM))
+
+                    result = messagebox.askquestion('Confirm', messagetext)
+                    if result == 'yes':
+                        print("")
+                        # insert into database
+                    else:
+                        windowswap(orderDet.destroy(), order_details())
+
+
+
 
         # save on database
-        volume = (length * width * depth)/1000000
 
 
 
 
 
-        messagetext = ((volume) ," Cubic meters of ",concrete," to be delivered on ", (day), "/",(month),"/",(year), " at", (time),(AMPM))
 
-        result = messagebox.askquestion('Confirm', messagetext)
-        if result == 'yes':
-            ignore()
-        else:
-            ignore()
 
 
 
@@ -561,6 +601,7 @@ def homepage():
 
     def time():
         string = strftime('%H:%M:%S %p \n %x')
+        a = strftime('%x')
         lbl.config(text=string)
         lbl.after(1000,time)
         lbl.grid(column=0,row=1,sticky="S")
@@ -575,7 +616,7 @@ def homepage():
     home.mainloop()
 
 
-order_details()
+homepage()
 
 
 

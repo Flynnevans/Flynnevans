@@ -3,9 +3,9 @@ from datetime import datetime
 import re
 import postcodes_uk
 
-2 or 4 or 6 or 9 or 11
-def isValid_date(day,month,year):
-    if day == (31) and month == 2
+# 2 or 4 or 6 or 9 or 11
+# def isValid_date(day,month,year):
+#     if day == (31) and month == 2
 
 
 
