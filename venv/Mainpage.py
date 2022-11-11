@@ -147,7 +147,7 @@ def order_details():
         global orderdetails
 
 
-        if AMPM_input.get() == "AM" and int(time_input.get()[0:1]) < 7:
+        if AMPM_input.get() == "AM" and int(time_input.get()[0:2]) < 7:
             messagebox.showinfo("info", "invalid time")
 
         if AMPM_input.get() == "PM":
@@ -160,6 +160,9 @@ def order_details():
         if int(time_input.get()[3:5]) > 59:
             messagebox.showinfo("info", "invalid time")
 
+
+
+
         else:
             volume = (length_input.get() * width_input.get() * depth_input.get()) / 1000000
             if volume > 6:
@@ -169,17 +172,8 @@ def order_details():
                 if Con_type_input.get() == "CEM1 ":
                     messagebox.showinfo("info",
                                         "No concrete type has been entered")
-
-                    a = strftime('%x')
-                    if int(a[6:7]) < int(year_input.get()):
-                        print("year is valid")
-                    elif int(a[6:7]) == int(year_input.get()):
-                        print("same year")
-                    #check if the month is greater, then its always valid
-                    #else check if the month is the same
-                    #if it is, check if the day is greater, if it is the date chosen is valid.
-
                 else:
+
                     AMPM = AMPM_input.get()
                     time = time_input.get()
                     length = length_input.get()
@@ -191,31 +185,30 @@ def order_details():
                     month = month_input.get()
                     year = year_input.get()
 
-                    orderdetails = [length, width, depth, concrete, accepted, day, month, year, time, AMPM]
 
-                    messagetext = ((volume), " Cubic meters of ", concrete, " to be delivered on ", (day), "/",
-                                   (month), "/", (year), " at",(time), (AMPM))
 
-                    result = messagebox.askquestion('Confirm', messagetext)
-                    if result == 'yes':
-                        print("")
-                        # insert into database
+
+                    a = strftime('%x')
+                    x = str(year_input.get())
+                    y = str(month_input.get())
+                    z = str(day_input.get())
+                    if int(a[6:8]) < int(x[2:4]):
+                        insert_orders(length, width, depth, concrete, accepted, day, month, year, time, AMPM)
+                    elif int(a[6:8]) == int(x[2:4]):
+
+                        if int(a[3:5]) < int(y):
+                            insert_orders(length, width, depth, concrete, accepted, day, month, year, time, AMPM)
+                        elif int(a[3:5]) == int(y):
+                            if int(a[0:2]) < int(z):
+                                insert_orders(length, width, depth, concrete, accepted, day, month, year, time, AMPM)
+                            elif int(a[0:2]) == int(z):
+                                messagebox.showinfo("Info", "Same day delivery is not available")
+                            else:
+                                messagebox.showinfo("Error", "That date is invalid")
+                        else:
+                            messagebox.showinfo("Error", "That date is invalid")
                     else:
-                        windowswap(orderDet.destroy(), order_details())
-
-
-
-
-        # save on database
-
-
-
-
-
-
-
-
-
+                        messagebox.showinfo("Error", "That date is invalid")
 
 
     confirm_button = Button(buttonFrame, text="Confirm", width=12, height=3, bg="#C6CFFF",
@@ -228,7 +221,20 @@ def order_details():
 
     orderDet.mainloop()
 
+def insert_orders(length, width, depth, concrete, accepted, day, month, year, time, AMPM):
+    global orderdetails
+    volume = (length * width * depth) / 1000000
+    orderdetails = [length, width, depth, concrete, accepted, day, month, year, time, AMPM]
 
+    messagetext = ((volume), " Cubic meters of ", concrete, " to be delivered on ", (day), "/",
+                   (month), "/", (year), " at", (time), (AMPM))
+
+    result = messagebox.askquestion('Confirm', messagetext)
+    if result == 'yes':
+        print("")
+        # insert into database
+    else:
+        windowswap(orderDet.destroy(), order_details())
 
 
 
@@ -616,7 +622,7 @@ def homepage():
     home.mainloop()
 
 
-homepage()
+order_details()
 
 
 
