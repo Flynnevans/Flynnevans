@@ -10,7 +10,7 @@ def signup_window():
 
     signup = Tk()
     signup.title("Signup")
-    signup.geometry("350x250")
+    signup.geometry("250x250")
     signup.config(bg="#728c8d")
 
 
@@ -67,7 +67,7 @@ def signup_window():
 def login_window():
     login_page = Tk()
     login_page.title("Login Page")
-    login_page.geometry("350x250")
+    login_page.geometry("250x200")
     login_page.config(bg="#728c8d")
 
 #create 2 frames grid them in 1 column in column 0
@@ -98,7 +98,7 @@ def login_window():
     Passinput.grid(row=2, column=1, padx=10, pady=10, sticky="SE")
 
     login_button = Button(buttonFrame, text="Login", width=8, height=2, bg="#C6CFFF",
-                         command=lambda: username_validation(Userinput.get(), Passinput.get()))
+                         command=lambda: username_validation(Userinput.get(),Passinput.get()))
     login_button.grid(row=0, column=0, padx=10, pady=10, sticky="E")
 
     back_button = Button(buttonFrame, text="Back", width=8, height=2, bg="#C6CFFF",

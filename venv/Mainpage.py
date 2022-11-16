@@ -2,7 +2,7 @@ from tkinter import *
 import sqlite3
 from time import strftime
 from tkinter import messagebox
-from loginSignup import insertdata
+from loginSignup import *
 import validation
 
 def windowswap(close, open):
@@ -157,8 +157,10 @@ def order_details():
         if int(time_input.get()[0:1]) > 12:
             messagebox.showinfo("info", "invalid time")
 
+
         if int(time_input.get()[3:5]) > 59:
             messagebox.showinfo("info", "invalid time")
+
 
 
 
@@ -196,12 +198,12 @@ def order_details():
                         insert_orders(length, width, depth, concrete, accepted, day, month, year, time, AMPM)
                     elif int(a[6:8]) == int(x[2:4]):
 
-                        if int(a[3:5]) < int(y):
+                        if int(a[3:5]) < int(z):
                             insert_orders(length, width, depth, concrete, accepted, day, month, year, time, AMPM)
-                        elif int(a[3:5]) == int(y):
-                            if int(a[0:2]) < int(z):
+                        elif int(a[3:5]) == int(z):
+                            if int(a[0:2]) < int(y):
                                 insert_orders(length, width, depth, concrete, accepted, day, month, year, time, AMPM)
-                            elif int(a[0:2]) == int(z):
+                            elif int(a[0:2]) == int(y):
                                 messagebox.showinfo("Info", "Same day delivery is not available")
                             else:
                                 messagebox.showinfo("Error", "That date is invalid")
@@ -231,8 +233,7 @@ def insert_orders(length, width, depth, concrete, accepted, day, month, year, ti
 
     result = messagebox.askquestion('Confirm', messagetext)
     if result == 'yes':
-        print("")
-        # insert into database
+        loginSignup.orderDet_insert(orderdetails,customerdetails)
     else:
         windowswap(orderDet.destroy(), order_details())
 
@@ -622,7 +623,7 @@ def homepage():
     home.mainloop()
 
 
-order_details()
+
 
 
 

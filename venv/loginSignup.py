@@ -3,20 +3,74 @@ import sqlite3
 from tkinter import *
 from tkinter import messagebox
 
+
 def Create_Tables():
-    # creating table Staff
     conn = sqlite3.connect('Mincrete.db')
     print("Opened database successfully")
-
-    # using create if exists to prevent the code to crash if the database already exists.
 
     conn.execute('''CREATE TABLE IF NOT EXISTS Login_details 
                (Username        TEXT     PRIMARY KEY     NOT NULL,
                 Password      TEXT    NOT NULL);''')
-
     print("Login Details table is created succesfully")
 
     conn.close()
+
+
+
+
+
+
+
+
+
+def customer_table():
+    conn = sqlite3.connect('Mincrete.db')
+    print("Opened database successfully")
+
+    conn.execute('''CREATE TABLE IF NOT EXISTS cust_details 
+               (custID        TEXT     PRIMARY KEY     NOT NULL,
+                fname      TEXT    NOT NULL,
+                sname         TEXT      NOT NULL,
+                address       TEXT      NOT NULL,
+                phonenumber     INT    NOT NULL,
+                email       TEXT        NOT NULL);''')
+    print("Customer Details table is created succesfully")
+
+    conn.close()
+
+
+def order_table():
+    conn = sqlite3.connect('Mincrete.db')
+    print("Opened database successfully")
+
+    conn.execute('''CREATE TABLE IF NOT EXISTS order_details 
+               (orderID        TEXT     PRIMARY KEY     NOT NULL,
+               custID           TEXT    NOT NULL,
+                length      INT    NOT NULL,
+                width         INT      NOT NULL,
+                depth       INT      NOT NULL,
+                concrete     TEXT    NOT NULL,
+                day       INT        NOT NULL,
+                month       INT        NOT NULL,
+                year        INT        NOT NULL,
+                type        TEXT        NOT NULL,
+                FOREIGN KEY (custID) REFERENCES cust_Details (custID));''')
+    print("Customer Details table is created succesfully")
+
+
+    conn.close()
+
+
+
+
+
+
+
+
+
+
+
+
 
 def adminValidator(username,password,validation):
         conn = sqlite3.connect('Mincrete.db')
@@ -32,29 +86,15 @@ def adminValidator(username,password,validation):
         pass
 
 def insertdata(username1,password1):
-    # inserting data into parent table DEPRATEMENTS
-    # Enter values using input statements
+
 
     conn = sqlite3.connect('Mincrete.db')
-    # insert data into database table
-    # conn.execute('''insert into Login_details  (Username, Password) values (?, ?)''', )
+
     conn.execute('''insert into Login_details  (Username, Password) values (?, ?)''',(username1,password1))
 
-    conn.commit()  # do not forget to commit the data (i.e. save the data on the table
+    conn.commit()
     messagebox.showinfo("info", "signup was successful")
     conn.close()
-
-
-def adminpass():
-
-    conn = sqlite3.connect('Mincrete.db')
-    conn.execute('''insert into Login_details  (Username, Password) values (?, ?)''',("Richevs","Concrete"))
-
-    conn.commit()  # do not forget to commit the data (i.e. save the data on the table
-    messagebox.showinfo("info", "signup was successful")
-    conn.close()
-
-
 
 
 
@@ -69,19 +109,27 @@ def username_validation(username, password):
     if result == 1:
         messagebox.showinfo("info", "login success")
         homepage()
+
     else:
         messagebox.showinfo("info", "login failed")
     pass
 
 
 
+def delete_account(x,y):
+    conn = sqlite3.connect('Mincrete.db')
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM Login_details where Username =? and Password=?",(x,y ))
+    conn.commit()
+    conn.close()
+
+def custDet_insert():
+    pass
+
+def orderDet_insert():
+    pass
 
 
-
-
-#Create_Tables()
-#adminpass()
-# insertdata("hi","bye")
 
 if __name__ == "__main__":
     pass
