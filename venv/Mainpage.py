@@ -233,7 +233,7 @@ def insert_orders(length, width, depth, concrete, accepted, day, month, year, ti
 
     result = messagebox.askquestion('Confirm', messagetext)
     if result == 'yes':
-        loginSignup.orderDet_insert(orderdetails,customerdetails)
+        orderDet_insert(orderdetails,customerdetails)
     else:
         windowswap(orderDet.destroy(), order_details())
 
@@ -623,7 +623,7 @@ def homepage():
     home.mainloop()
 
 
-
+homepage()
 
 
 

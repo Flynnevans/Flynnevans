@@ -2,6 +2,13 @@
 import sqlite3
 from tkinter import *
 from tkinter import messagebox
+from time import strftime
+
+
+
+
+
+
 
 
 def Create_Tables():
@@ -53,7 +60,7 @@ def order_table():
                 day       INT        NOT NULL,
                 month       INT        NOT NULL,
                 year        INT        NOT NULL,
-                type        TEXT        NOT NULL,
+                accepted     TEXT    NOT NULL,
                 FOREIGN KEY (custID) REFERENCES cust_Details (custID));''')
     print("Customer Details table is created succesfully")
 
@@ -126,10 +133,17 @@ def delete_account(x,y):
 def custDet_insert():
     pass
 
-def orderDet_insert():
-    pass
+
+def orderDet_insert(order, customer):
+    date = strftime('%x')
+    string = strftime('%H%M%S')
+    OrderID = string + date[0:2] + date[3:5] + date[6:8]
+
+    CustomerID = customer[0][0]+strftime('%H%M%S')+customer[1][0]
 
 
+    conn = sqlite3.connect('Mincrete.db')
+    cursor = conn.cursor()
+    conn.execute('''insert into order_details (orderID, custID, length, width, depth, concrete, day, month, year, accepted) 
+    values (?,?,?,?,?,?,?,?,?,?)''',(OrderID, CustomerID, order[0],order[1],order[2],order[3],order[5],order[6],order[7],order[4]))
 
-if __name__ == "__main__":
-    pass
