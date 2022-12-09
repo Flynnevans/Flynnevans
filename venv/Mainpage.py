@@ -9,6 +9,17 @@ def windowswap(close, open):
     close
     open
 
+
+
+
+
+
+
+
+
+
+
+
 def order_details():
     orderDet = Tk()
     orderDet.title("Order Details")
@@ -93,7 +104,7 @@ def order_details():
     dayinput.grid(row=0, column=1, padx=5, pady=10)
 
 
-    month = ["1", "2", "3", "4", "5", "6", "7", "08", "09", "10",
+    month = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
             "11", "12"]
 
     month_input = IntVar()
@@ -131,15 +142,6 @@ def order_details():
 
     #-----------------------------------
 
-    accepted_label = Label(dateframe, text="Accepted:")
-    accepted_label.config(font=("arial", 9), bg="#728c8d")
-    accepted_label.grid(row=2, column=1, columnspan=1, sticky="N", pady=10, padx=10)
-
-    accepted_input = StringVar()
-    accepted_input.set("Y/N")
-    acceptedinput = OptionMenu(dateframe, accepted_input, "Yes","No")
-    acceptedinput.config(bg="#aaaaaa")
-    acceptedinput.grid(row=2, column=2, padx=10, pady=10)
 
 
 
@@ -182,7 +184,6 @@ def order_details():
                     width = width_input.get()
                     depth = depth_input.get()
                     concrete = Con_type_input.get()
-                    accepted = accepted_input.get()
                     day = day_input.get()
                     month = month_input.get()
                     year = year_input.get()
@@ -195,14 +196,14 @@ def order_details():
                     y = str(month_input.get())
                     z = str(day_input.get())
                     if int(a[6:8]) < int(x[2:4]):
-                        insert_orders(length, width, depth, concrete, accepted, day, month, year, time, AMPM)
+                        insert_orders(length, width, depth, concrete, day, month, year, time, AMPM)
                     elif int(a[6:8]) == int(x[2:4]):
 
                         if int(a[3:5]) < int(z):
-                            insert_orders(length, width, depth, concrete, accepted, day, month, year, time, AMPM)
+                            insert_orders(length, width, depth, concrete, day, month, year, time, AMPM)
                         elif int(a[3:5]) == int(z):
                             if int(a[0:2]) < int(y):
-                                insert_orders(length, width, depth, concrete, accepted, day, month, year, time, AMPM)
+                                insert_orders(length, width, depth, concrete, day, month, year, time, AMPM)
                             elif int(a[0:2]) == int(y):
                                 messagebox.showinfo("Info", "Same day delivery is not available")
                             else:
@@ -223,17 +224,20 @@ def order_details():
 
     orderDet.mainloop()
 
-def insert_orders(length, width, depth, concrete, accepted, day, month, year, time, AMPM):
+
+
+def insert_orders(length, width, depth, concrete, day, month, year, time, AMPM):
     global orderdetails
     volume = (length * width * depth) / 1000000
-    orderdetails = [length, width, depth, concrete, accepted, day, month, year, time, AMPM]
+    orderdetails = [length, width, depth, concrete,day, month, year, time, AMPM]
 
     messagetext = ((volume), " Cubic meters of ", concrete, " to be delivered on ", (day), "/",
                    (month), "/", (year), " at", (time), (AMPM))
 
     result = messagebox.askquestion('Confirm', messagetext)
     if result == 'yes':
-        orderDet_insert(orderdetails,customerdetails)
+        custDet_insert(orderdetails,customerdetails)
+
     else:
         windowswap(orderDet.destroy(), order_details())
 
@@ -399,7 +403,7 @@ def updatepass_user(username, newpass):
     cursor = conn.cursor()
     cursor.execute("UPDATE Login_details Set Password = ? WHERE Username = ?", newpass, username)
     conn.commit()
-    messagebox.showinfo("info", "signup was successful")
+    messagebox.showinfo("info", "password change was successful")
     conn.close()
 
 

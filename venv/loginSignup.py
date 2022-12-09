@@ -8,7 +8,11 @@ from time import strftime
 
 
 
-
+def delete_Table():
+    conn = sqlite3.connect('Mincrete.db')
+    conn.execute('DROP TABLE cust_details')
+    conn.commit()
+    conn.close()
 
 
 def Create_Tables():
@@ -39,8 +43,9 @@ def customer_table():
                 fname      TEXT    NOT NULL,
                 sname         TEXT      NOT NULL,
                 address       TEXT      NOT NULL,
-                phonenumber     INT    NOT NULL,
-                email       TEXT        NOT NULL);''')
+                phonenumber     TEXT    NOT NULL,
+                email       TEXT        NOT NULL,
+                postcode      TEXT       NOT NULL);''')
     print("Customer Details table is created succesfully")
 
     conn.close()
@@ -60,7 +65,8 @@ def order_table():
                 day       INT        NOT NULL,
                 month       INT        NOT NULL,
                 year        INT        NOT NULL,
-                accepted     TEXT    NOT NULL,
+                time       VARCHAR        NOT NULL,
+                AMPM       TEXT        NOT NULL,
                 FOREIGN KEY (custID) REFERENCES cust_Details (custID));''')
     print("Customer Details table is created succesfully")
 
@@ -130,20 +136,73 @@ def delete_account(x,y):
     conn.commit()
     conn.close()
 
-def custDet_insert():
-    pass
 
 
-def orderDet_insert(order, customer):
+def search_orders(Order_num):
+    conn = sqlite3.connect('Mincrete.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM order_details where orderid = ?", (Order_num, ))
+    found = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return found
+
+def dump():
+    conn = sqlite3.connect('Mincrete.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM cust_details")
+    found = cursor.fetchall()
+    cursor.close()
+    conn.close()
+    return found
+
+
+
+
+
+
+def custDet_insert(order, customer):
+    CustomerID = customer[0][0] + strftime('%H%M%S') + customer[1][0]
+
+    conn = sqlite3.connect('Mincrete.db')
+    cursor = conn.cursor()
+    cursor.execute('''insert into cust_Details(custID, fname, sname, address, phonenumber, email, postcode) 
+    values(?,?,?,?,?,?,?)''',(CustomerID,customer[0],customer[1],customer[2],customer[4],customer[5],customer[3]))
+
+    conn.commit()
+    conn.close()
+
+    orderDet_insert(order, CustomerID)
+
+
+def orderDet_insert(order, CustomerID):
     date = strftime('%x')
     string = strftime('%H%M%S')
     OrderID = string + date[0:2] + date[3:5] + date[6:8]
 
-    CustomerID = customer[0][0]+strftime('%H%M%S')+customer[1][0]
+
+
+
+    text = ("your orderID is", OrderID,"your customerID is", CustomerID)
+    messagebox.showinfo("Take Note Of these", text)
 
 
     conn = sqlite3.connect('Mincrete.db')
     cursor = conn.cursor()
-    conn.execute('''insert into order_details (orderID, custID, length, width, depth, concrete, day, month, year, accepted) 
-    values (?,?,?,?,?,?,?,?,?,?)''',(OrderID, CustomerID, order[0],order[1],order[2],order[3],order[5],order[6],order[7],order[4]))
+    cursor.execute('''insert into order_details (orderID, custID, length, width, depth,
+     concrete, day, month, year, time, AMPM) 
+    values (?,?,?,?,?,?,?,?,?,?,?)''',(OrderID, CustomerID, order[0],order[1],order[2],order[3],order[4],
+                                   order[5],order[6], order[7], order[8]))
+    conn.commit()
+    conn.close()
 
+
+
+
+
+
+if __name__ == '__main__':
+    #delete_Table()
+    #order_table()
+    customer_table()
+    #print(dump())
