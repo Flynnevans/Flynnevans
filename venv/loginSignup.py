@@ -3,12 +3,21 @@ import sqlite3
 from tkinter import *
 from tkinter import messagebox
 from time import strftime
+import Mainpage
 
 
+def windowswap(close, open):
+    close
+    open
 
 
 
 def delete_Table():
+    conn = sqlite3.connect('Mincrete.db')
+    conn.execute('DROP TABLE order_details')
+    conn.commit()
+    conn.close()
+
     conn = sqlite3.connect('Mincrete.db')
     conn.execute('DROP TABLE cust_details')
     conn.commit()
@@ -183,7 +192,7 @@ def orderDet_insert(order, CustomerID):
 
 
 
-    text = ("your orderID is", OrderID,"your customerID is", CustomerID)
+    text = ("Take note: your orderID is", OrderID,"your customerID is", CustomerID)
     messagebox.showinfo("Take Note Of these", text)
 
 
@@ -195,6 +204,7 @@ def orderDet_insert(order, CustomerID):
                                    order[5],order[6], order[7], order[8]))
     conn.commit()
     conn.close()
+    Mainpage.homepage()
 
 
 
@@ -202,7 +212,8 @@ def orderDet_insert(order, CustomerID):
 
 
 if __name__ == '__main__':
-    #delete_Table()
-    #order_table()
-    customer_table()
+    # delete_Table()
+    # order_table()
+    # customer_table()
     #print(dump())
+    pass

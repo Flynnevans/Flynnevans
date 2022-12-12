@@ -9,6 +9,9 @@ def windowswap(close, open):
     close
     open
 
+def homepageswap():
+    order_Det.destroy()
+    homepage()
 
 
 
@@ -215,7 +218,7 @@ def order_details():
 
 
     confirm_button = Button(buttonFrame, text="Confirm", width=12, height=3, bg="#C6CFFF",
-                          command=lambda: orderlist())
+                          command=lambda: windowswap(orderDet.destroy(), orderlist()))
     confirm_button.grid(row=0, column=0, padx=25, pady=10)
 
     return_button = Button(buttonFrame, text="Return", width=12, height=3, bg="#C6CFFF",
@@ -627,7 +630,10 @@ def homepage():
     home.mainloop()
 
 
+
+
+
+if __name__ == '__main__':
+    pass
+
 homepage()
-
-
-
