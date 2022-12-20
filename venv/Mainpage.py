@@ -245,6 +245,72 @@ def insert_orders(length, width, depth, concrete, day, month, year, time, AMPM):
         windowswap(orderDet.destroy(), order_details())
 
 
+def returning_customerwindow():
+    oldcustomer = Tk()
+    oldcustomer.title("Returning customer")
+    oldcustomer.geometry("300x325")
+    oldcustomer.config(bg="#728c8d")
+
+    titleFrame = Frame(oldcustomer, bg="#728c8d", width="300", height="50")
+    titleFrame.grid(column=0, row=0)
+    detailsFrame = Frame(oldcustomer, bg="#728c8d", width="300", height="200")
+    detailsFrame.grid(column=0, row=1)
+    buttonFrame = Frame(oldcustomer, bg="#728c8d", width="300", height="75")
+    buttonFrame.grid(column=0, row=2)
+
+    welcomelabel = Label(titleFrame, text="Customer Details")
+    welcomelabel.config(font=("arial", 20))
+    welcomelabel.config(bg="#728c8d", justify='center')
+    welcomelabel.grid(row=0, column=0, columnspan=1, sticky="W", pady=30, padx=30)
+
+
+
+    Id_label = Label(detailsFrame, text="Customer ID:")
+    Id_label.config(font=("arial", 9), bg="#728c8d")
+    Id_label.grid(row=0, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    Id_input = StringVar()
+    Idinput = Entry(detailsFrame, width=15, bg="#aaaaaa", textvariable=Id_input)
+    Idinput.grid(row=0, column=1, padx=10, pady=10)
+
+    # -----------------------------
+
+    postcode_label = Label(detailsFrame, text="Postcode:")
+    postcode_label.config(font=("arial", 9), bg="#728c8d")
+    postcode_label.grid(row=1, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    postcode_input = StringVar()
+    postcodeinput = Entry(detailsFrame, width=15, bg="#aaaaaa", textvariable=postcode_input)
+    postcodeinput.grid(row=1, column=1, padx=10, pady=10)
+    # -------------------------------
+
+    sname_label = Label(detailsFrame, text="Surname Name:")
+    sname_label.config(font=("arial", 9), bg="#728c8d")
+    sname_label.grid(row=2, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    surname_input = StringVar()
+    surnameinput = Entry(detailsFrame, width=15, bg="#aaaaaa", textvariable=surname_input)
+    surnameinput.grid(row=2, column=1, padx=10, pady=10)
+
+
+
+
+    order_button = Button(buttonFrame, text="Create Order", width=12, height=3, bg="#C6CFFF",
+                          command=lambda: windowswap(oldcustomer.destroy(), order_details()))
+    order_button.grid(row=0, column=0, padx=25, pady=10)
+
+    return_button = Button(buttonFrame, text="Return Home", width=12, height=3, bg="#C6CFFF",
+                           command=lambda: windowswap(oldcustomer.destroy(), homepage()))
+    return_button.grid(row=0, column=1, padx=25, pady=10)
+
+    oldcustomer.mainloop()
+
+
+
+
+
+
+
 
 def new_customerwindow():
 
@@ -366,6 +432,15 @@ def new_customerwindow():
 
 
 
+
+
+
+
+
+
+
+
+# accounts section
 
 def account_add():
 
@@ -535,7 +610,7 @@ def accountsPage():
 
 
 
-
+# main hompage
 def homepage():
     home = Tk()
     home.title("home")
@@ -581,7 +656,7 @@ def homepage():
     newcustomer_button.grid(row=1, column=1, padx=10, pady=10)
 
     oldcustomer_button = Button(right_frame, text="Returning", width=12, height=3, bg="#C6CFFF",
-                                command=lambda: filler())
+                                command=lambda: windowswap(home.destroy(), returning_customerwindow()))
     oldcustomer_button.grid(row=1, column=1, padx=10, pady=10)
     # --------------------------------------
 

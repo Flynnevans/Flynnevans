@@ -171,7 +171,7 @@ def dump():
 
 
 def custDet_insert(order, customer):
-    CustomerID = customer[0][0] + strftime('%H%M%S') + customer[1][0]
+    CustomerID = customer[0][0] + strftime('%M%S') + customer[1][0]
 
     conn = sqlite3.connect('Mincrete.db')
     cursor = conn.cursor()
