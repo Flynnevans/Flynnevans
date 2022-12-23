@@ -171,17 +171,48 @@ def dump():
 
 
 def custDet_insert(order, customer):
-    CustomerID = customer[0][0] + strftime('%M%S') + customer[1][0]
 
-    conn = sqlite3.connect('Mincrete.db')
-    cursor = conn.cursor()
-    cursor.execute('''insert into cust_Details(custID, fname, sname, address, phonenumber, email, postcode) 
-    values(?,?,?,?,?,?,?)''',(CustomerID,customer[0],customer[1],customer[2],customer[4],customer[5],customer[3]))
+    if len(customer) > 4:
 
-    conn.commit()
-    conn.close()
+        CustomerID = customer[0][0] + strftime('%M%S') + customer[1][0]
 
-    orderDet_insert(order, CustomerID)
+        conn = sqlite3.connect('Mincrete.db')
+        cursor = conn.cursor()
+        cursor.execute('''insert into cust_Details(custID, fname, sname, address, phonenumber, email, postcode) 
+        values(?,?,?,?,?,?,?)''',(CustomerID,customer[0],customer[1],customer[2],customer[4],customer[5],customer[3]))
+
+        conn.commit()
+        conn.close()
+
+        orderDet_insert(order, CustomerID)
+    else:
+        conn = sqlite3.connect('Mincrete.db')
+        cursor = conn.cursor()
+        cursor = conn.execute("SELECT * FROM cust_Details WHERE custID = ? and postcode = ? and sname = ?",(customer[0],
+                              customer[1],customer[2]))
+
+        for row in cursor:
+            if customer[0] == row[0]:
+                if customer[2] == row[2]:
+                    if customer[1] == row[6]:
+                        CustomerID = customer[0]
+                        orderDet_insert(order, CustomerID)
+                    else:
+                        messagebox.showinfo("info", "No details were found")
+                else:
+                    messagebox.showinfo("info", "No details were found")
+            else:
+                messagebox.showinfo("info", "No details were found")
+
+
+
+
+        conn.commit()
+        conn.close()
+
+
+
+
 
 
 def orderDet_insert(order, CustomerID):

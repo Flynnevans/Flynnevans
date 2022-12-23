@@ -23,7 +23,10 @@ def homepageswap():
 
 
 
-def order_details():
+def order_details(custdet):
+    global customerdetails
+    customerdetails = custdet
+
     orderDet = Tk()
     orderDet.title("Order Details")
     orderDet.geometry("350x525")
@@ -231,6 +234,7 @@ def order_details():
 
 def insert_orders(length, width, depth, concrete, day, month, year, time, AMPM):
     global orderdetails
+    global customerdetails
     volume = (length * width * depth) / 1000000
     orderdetails = [length, width, depth, concrete,day, month, year, time, AMPM]
 
@@ -246,6 +250,7 @@ def insert_orders(length, width, depth, concrete, day, month, year, time, AMPM):
 
 
 def returning_customerwindow():
+    global customerdetails
     oldcustomer = Tk()
     oldcustomer.title("Returning customer")
     oldcustomer.geometry("300x325")
@@ -294,16 +299,20 @@ def returning_customerwindow():
 
 
 
-
     order_button = Button(buttonFrame, text="Create Order", width=12, height=3, bg="#C6CFFF",
-                          command=lambda: windowswap(oldcustomer.destroy(), order_details()))
+                          command=lambda: windowswap(oldcustomer.destroy(), order_details([Id_input.get(),
+                                                                                           postcode_input.get(),
+                                                                                           surname_input.get()])))
     order_button.grid(row=0, column=0, padx=25, pady=10)
 
     return_button = Button(buttonFrame, text="Return Home", width=12, height=3, bg="#C6CFFF",
                            command=lambda: windowswap(oldcustomer.destroy(), homepage()))
     return_button.grid(row=0, column=1, padx=25, pady=10)
 
+
+
     oldcustomer.mainloop()
+
 
 
 
@@ -406,7 +415,7 @@ def new_customerwindow():
                     email = email_input.get()
 
                     customerdetails = [fname,sname,address,postcode,phonenumber,email]
-                    windowswap(newcustomer.destroy(), order_details())
+                    windowswap(newcustomer.destroy(), order_details(customerdetails))
                 else:
                     messagebox.showinfo("info", "Email address was invalid")
             else:
