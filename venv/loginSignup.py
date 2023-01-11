@@ -173,7 +173,7 @@ def dump():
 def custDet_insert(order, customer):
 
     if len(customer) > 4:
-
+        print("0")
         CustomerID = customer[0][0] + strftime('%M%S') + customer[1][0]
 
         conn = sqlite3.connect('Mincrete.db')
@@ -190,21 +190,19 @@ def custDet_insert(order, customer):
         cursor = conn.cursor()
         cursor = conn.execute("SELECT * FROM cust_Details WHERE custID = ? and postcode = ? and sname = ?",(customer[0],
                               customer[1],customer[2]))
+        results = cursor.fetchone()
 
-        for row in cursor:
-            if customer[0] == row[0]:
-                if customer[2] == row[2]:
-                    if customer[1] == row[6]:
+
+
+        try:
+            if customer[0] == results[0]:
+                if customer[2] == results[2]:
+                    if customer[1] == results[6]:
                         CustomerID = customer[0]
                         orderDet_insert(order, CustomerID)
-                    else:
-                        messagebox.showinfo("info", "No details were found")
-                else:
-                    messagebox.showinfo("info", "No details were found")
-            else:
-                messagebox.showinfo("info", "No details were found")
-
-
+        except:
+            messagebox.showinfo("info", "No details were found")
+            Mainpage.homepage()
 
 
         conn.commit()
@@ -244,7 +242,7 @@ def orderDet_insert(order, CustomerID):
 
 if __name__ == '__main__':
     # delete_Table()
-    # order_table()
-    # customer_table()
+    #order_table()
+    #customer_table()
     #print(dump())
     pass
