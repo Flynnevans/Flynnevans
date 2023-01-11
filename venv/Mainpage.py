@@ -15,14 +15,6 @@ def homepageswap():
 
 
 
-
-
-
-
-
-
-
-
 def order_details(custdet):
     global customerdetails
     customerdetails = custdet
@@ -98,7 +90,7 @@ def order_details(custdet):
     date_label.config(font=("arial", 9), bg="#728c8d")
     date_label.grid(row=0, column=0, columnspan=1, sticky="N", pady=10, padx=10)
 
-    days = ["1","2","3","4","5","6","7","8","9","10",
+    days = ["01","02","03","04","05","06","7","8","9","10",
             "11","12","13","14","15","16","17","18",
             "19","20","21","22","23","24","25","26",
             "27","28","29","30","31"]
@@ -110,7 +102,7 @@ def order_details(custdet):
     dayinput.grid(row=0, column=1, padx=5, pady=10)
 
 
-    month = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10",
+    month = ["01", "02", "03", "04", "05", "06", "7", "8", "9", "10",
             "11", "12"]
 
     month_input = IntVar()
@@ -121,7 +113,7 @@ def order_details(custdet):
 
 
 
-    year = ["2022", "2023"]
+    year = ["2023", "2024", "2025"]
 
     year_input = IntVar()
     year_input.set("YYYY")
@@ -182,6 +174,7 @@ def order_details(custdet):
                 if Con_type_input.get() == "CEM1 ":
                     messagebox.showinfo("info",
                                         "No concrete type has been entered")
+                    homepage()
                 else:
 
                     AMPM = AMPM_input.get()
@@ -560,6 +553,76 @@ def account_edit():
 
     accounts_edit.mainloop()
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def Remove_orderPage():
+
+
+
+    remove_orders = Tk()
+    remove_orders.title("Remove_orders")
+    remove_orders.geometry("450x200")
+
+    remove_orders.config(bg="#728c8d")
+
+
+    orders_menu = Menu(remove_orders)
+    remove_orders.config(menu=orders_menu)
+
+
+    home_menu = Menu(orders_menu)
+    account_menu = Menu(orders_menu)
+    orders_menu = Menu(orders_menu)
+    calculator_menu = Menu(orders_menu)
+    schedule_menu = Menu(orders_menu)
+
+    orders_menu.add_cascade(label="Home", menu=home_menu)
+    orders_menu.add_cascade(label="Accounts", menu=account_menu)
+    orders_menu.add_cascade(label="Orders", menu=orders_menu)
+    orders_menu.add_cascade(label="Calculator", menu=calculator_menu)
+    orders_menu.add_cascade(label="Schedule", menu=schedule_menu)
+
+    textFrame = Frame(remove_orders, bg="#728c8d", width="450", height="100")
+    textFrame.grid(column=0, row=0)
+
+    buttonFrame = Frame(remove_orders, bg="#728c8d", width="450", height="100")
+    buttonFrame.grid(column=0, row=1)
+
+    home_menu.add_command(label="Home", command=lambda: windowswap(remove_orders.destroy(), homepage()))
+    home_menu.add_command(label="Exit", command=lambda: remove_orders.destroy())
+
+    account_menu.add_command(label="Accounts", command=lambda: windowswap(remove_orders.destroy(), accountsPage()))
+
+    orders_menu.add_command(label="Remove order", command=lambda: windowswap(remove_orders.destroy(), Remove_orderPage()))
+    orders_menu.add_command(label="Edit order", command=lambda: windowswap(remove_orders.destroy(), accountsPage()))
+    orders_menu.add_command(label="View orders", command=lambda: windowswap(remove_orders.destroy(), accountsPage()))
+
+
+
+
+    remove_orders_label = Label(textFrame, text="Welcome to the order removal page")
+    remove_orders_label.config(font=("arial", 12))
+    remove_orders_label.config(bg="#728c8d")
+    remove_orders_label.grid(row=0, column=0, columnspan=1, sticky="NSEW", pady=10, padx=10)
+
+
+    remove_orders.mainloop()
+
+
 def accountsPage():
 
 
@@ -596,6 +659,10 @@ def accountsPage():
     home_menu.add_command(label="Exit", command=lambda: accounts.destroy())
 
     accounts_menu.add_command(label="Accounts", command=lambda: windowswap(accounts.destroy(), accountsPage()))
+
+    orders_menu.add_command(label="Remove order", command=lambda: windowswap(accounts.destroy(), Remove_orderPage()))
+    orders_menu.add_command(label="Edit order", command=lambda: windowswap(accounts.destroy(), accountsPage()))
+    orders_menu.add_command(label="View orders", command=lambda: windowswap(accounts.destroy(), accountsPage()))
 
     edit_button = Button(buttonFrame, text="Edit account", width=12, height=3, bg="#C6CFFF",
                            command=lambda: account_edit())
@@ -692,6 +759,10 @@ def homepage():
     home_menu.add_command (label="Exit", command=lambda: home.destroy())
 
     accounts_menu.add_command(label="Accounts", command=lambda: windowswap(home.destroy(), accountsPage()))
+
+    orders_menu.add_command(label="Remove order", command=lambda: windowswap(home.destroy(), Remove_orderPage()))
+    orders_menu.add_command(label="Edit order", command=lambda: windowswap(home.destroy(), accountsPage()))
+    orders_menu.add_command(label="View orders", command=lambda: windowswap(home.destroy(), accountsPage()))
 
     lbl = Label(center_frame, font=("calibri", 15, "bold"),
                 background="#728c8d",
