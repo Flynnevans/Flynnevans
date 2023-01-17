@@ -170,7 +170,7 @@ def dump():
 
 
 
-def custDet_insert(order, customer):
+def customer_insert(order, customer):
 
     if len(customer) > 4:
         print("0")

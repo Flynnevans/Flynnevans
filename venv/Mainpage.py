@@ -6,6 +6,7 @@ from loginSignup import *
 import validation
 from pricing import *
 
+
 def windowswap(close, open):
     close
     open
@@ -240,7 +241,7 @@ def insert_orders(length, width, depth, concrete, day, month, year, time, AMPM):
 
     result = messagebox.askquestion('Confirm', messagetext)
     if result == 'yes':
-        loginSignup.custDet_insert(orderdetails,customerdetails)
+        customer_insert(orderdetails,customerdetails)
 
     else:
         windowswap(orderDet.destroy(), order_details())
