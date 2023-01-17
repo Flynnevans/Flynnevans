@@ -4,6 +4,7 @@ from time import strftime
 from tkinter import messagebox
 from loginSignup import *
 import validation
+from pricing import *
 
 def windowswap(close, open):
     close
@@ -69,16 +70,16 @@ def order_details(custdet):
     concrete_label.config(font=("arial", 9), bg="#728c8d")
     concrete_label.grid(row=3, column=0, columnspan=1, sticky="N", pady=10, padx=10)
 
-    options = ["Gen1 S2",
-               "Gen3 S2",
-               "C20 S2",
-               "C25 S2",
-               "C30 S2",
-               "C35 S2",
-               "C40 S2"]
+    options = ["Gen1",
+               "Gen3",
+               "C20",
+               "C25",
+               "C30",
+               "C35",
+               "C40"]
 
     Con_type_input = StringVar()
-    Con_type_input.set("CEM1 ")
+    Con_type_input.set("CEM1 S2 ")
     Con_typeinput = OptionMenu(detailsFrame, Con_type_input, *options)
     Con_typeinput.config(bg="#aaaaaa")
     Con_typeinput.grid(row=3, column=1, padx=10, pady=10)
@@ -188,7 +189,9 @@ def order_details(custdet):
                     month = month_input.get()
                     year = year_input.get()
 
+                    volume = (length * width * depth) / 1000000
 
+                    concrete_price(concrete, volume)
 
 
                     a = strftime('%x')
@@ -237,7 +240,7 @@ def insert_orders(length, width, depth, concrete, day, month, year, time, AMPM):
 
     result = messagebox.askquestion('Confirm', messagetext)
     if result == 'yes':
-        custDet_insert(orderdetails,customerdetails)
+        loginSignup.custDet_insert(orderdetails,customerdetails)
 
     else:
         windowswap(orderDet.destroy(), order_details())
