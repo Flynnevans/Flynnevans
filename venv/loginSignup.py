@@ -242,7 +242,7 @@ def orderDet_insert(order, CustomerID):
 
 if __name__ == '__main__':
     # delete_Table()
-    #order_table()
-    #customer_table()
+    # order_table()
+    # customer_table()
     #print(dump())
     pass

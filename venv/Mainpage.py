@@ -71,12 +71,11 @@ def order_details(custdet):
 
     options = ["Gen1 S2",
                "Gen3 S2",
-               "C16/20 S2",
-               "C20/25 S2",
-               "C25/30 S2",
-               "C28/35 S2",
-               "RC28/35 S2",
-               "C32/40 S2"]
+               "C20 S2",
+               "C25 S2",
+               "C30 S2",
+               "C35 S2",
+               "C40 S2"]
 
     Con_type_input = StringVar()
     Con_type_input.set("CEM1 ")
@@ -168,7 +167,9 @@ def order_details(custdet):
         else:
             volume = (length_input.get() * width_input.get() * depth_input.get()) / 1000000
             if volume > 6:
-                messagebox.showinfo("Warning", "Additional delivery charge will be added as extra mixer will be needed")
+                messagebox.showinfo("Warning", "Additional mixers will be needed")
+            if volume > 30:
+                messagebox.showinfo("Info","Price reduction due to mass buy")
 
             else:
                 if Con_type_input.get() == "CEM1 ":
