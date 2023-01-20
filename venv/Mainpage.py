@@ -2,9 +2,9 @@ from tkinter import *
 import sqlite3
 from time import strftime
 from tkinter import messagebox
-from loginSignup import *
 import validation
 from pricing import *
+import database_manage
 
 
 def windowswap(close, open):
@@ -145,8 +145,7 @@ def order_details(custdet):
 
 
     def orderlist():
-        global orderdetails
-
+        global orderdetails, price
 
         if AMPM_input.get() == "AM" and int(time_input.get()[0:2]) < 7:
             messagebox.showinfo("info", "invalid time")
@@ -167,55 +166,68 @@ def order_details(custdet):
 
 
         else:
+            price = 0
             volume = (length_input.get() * width_input.get() * depth_input.get()) / 1000000
-            if volume > 6:
+            if volume > 8:
                 messagebox.showinfo("Warning", "Additional mixers will be needed")
             if volume > 30:
                 messagebox.showinfo("Info","Price reduction due to mass buy")
+                price = -150
 
+
+            if Con_type_input.get() == "CEM1 ":
+                messagebox.showinfo("info",
+                                    "No concrete type has been entered")
+                homepage()
             else:
-                if Con_type_input.get() == "CEM1 ":
-                    messagebox.showinfo("info",
-                                        "No concrete type has been entered")
-                    homepage()
+
+                AMPM = AMPM_input.get()
+                time = time_input.get()
+                length = length_input.get()
+                width = width_input.get()
+                depth = depth_input.get()
+                concrete = Con_type_input.get()
+                day = day_input.get()
+                month = month_input.get()
+                year = year_input.get()
+
+
+                volume = (length * width * depth) / 1000000
+                if volume > 8:
+                    n = volume // 8
+                    n = n * 1050
+                    volume = volume // 8
+                    preprice = (concrete_price(concrete, volume))
+                    loads = volume // 8
+                    price = preprice + (loads * 25) + n
+                    print(price)
                 else:
-
-                    AMPM = AMPM_input.get()
-                    time = time_input.get()
-                    length = length_input.get()
-                    width = width_input.get()
-                    depth = depth_input.get()
-                    concrete = Con_type_input.get()
-                    day = day_input.get()
-                    month = month_input.get()
-                    year = year_input.get()
-
-                    volume = (length * width * depth) / 1000000
-
-                    concrete_price(concrete, volume)
+                    price = (concrete_price(concrete, volume))
 
 
-                    a = strftime('%x')
-                    x = str(year_input.get())
-                    y = str(month_input.get())
-                    z = str(day_input.get())
-                    if int(a[6:8]) < int(x[2:4]):
-                        insert_orders(length, width, depth, concrete, day, month, year, time, AMPM)
-                    elif int(a[6:8]) == int(x[2:4]):
 
-                        if int(a[3:5]) < int(z):
-                            insert_orders(length, width, depth, concrete, day, month, year, time, AMPM)
-                        elif int(a[3:5]) == int(z):
-                            if int(a[0:2]) < int(y):
-                                insert_orders(length, width, depth, concrete, day, month, year, time, AMPM)
-                            elif int(a[0:2]) == int(y):
-                                messagebox.showinfo("Info", "Same day delivery is not available")
-                            else:
-                                messagebox.showinfo("Error", "That date is invalid")
+
+                a = strftime('%x')
+                x = str(year_input.get())
+                y = str(month_input.get())
+                z = str(day_input.get())
+                if int(a[6:8]) < int(x[2:4]):
+                    insert_orders(length, width, depth, concrete, day, month, year, time, AMPM, price)
+                elif int(a[6:8]) == int(x[2:4]):
+
+                    if int(a[3:5]) < int(z):
+                        insert_orders(length, width, depth, concrete, day, month, year, time, AMPM, price)
+                    elif int(a[3:5]) == int(z):
+                        if int(a[0:2]) < int(y):
+                            insert_orders(length, width, depth, concrete, day, month, year, time, AMPM, price)
+                        elif int(a[0:2]) == int(y):
+                            messagebox.showinfo("Info", "Same day delivery is not available")
                         else:
                             messagebox.showinfo("Error", "That date is invalid")
                     else:
                         messagebox.showinfo("Error", "That date is invalid")
+                else:
+                    messagebox.showinfo("Error", "That date is invalid")
 
 
     confirm_button = Button(buttonFrame, text="Confirm", width=12, height=3, bg="#C6CFFF",
@@ -230,18 +242,19 @@ def order_details(custdet):
 
 
 
-def insert_orders(length, width, depth, concrete, day, month, year, time, AMPM):
+def insert_orders(length, width, depth, concrete, day, month, year, time, AMPM, price):
     global orderdetails
     global customerdetails
+    # from database_manage import customer_insert
     volume = (length * width * depth) / 1000000
-    orderdetails = [length, width, depth, concrete,day, month, year, time, AMPM]
+    orderdetails = [length, width, depth, concrete,day, month, year, time, AMPM, price]
 
     messagetext = ((volume), " Cubic meters of ", concrete, " to be delivered on ", (day), "/",
                    (month), "/", (year), " at", (time), (AMPM))
 
     result = messagebox.askquestion('Confirm', messagetext)
     if result == 'yes':
-        customer_insert(orderdetails,customerdetails)
+        database_manage.customer_insert(orderdetails,customerdetails)
 
     else:
         windowswap(orderDet.destroy(), order_details())

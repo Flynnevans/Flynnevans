@@ -3,7 +3,7 @@ import sqlite3
 from tkinter import *
 from tkinter import messagebox
 from time import strftime
-import Mainpage
+# from Mainpage import homepage
 
 
 def windowswap(close, open):
@@ -18,10 +18,10 @@ def delete_Table():
     conn.commit()
     conn.close()
 
-    conn = sqlite3.connect('Mincrete.db')
-    conn.execute('DROP TABLE cust_details')
-    conn.commit()
-    conn.close()
+    # conn = sqlite3.connect('Mincrete.db')
+    # conn.execute('DROP TABLE cust_details')
+    # conn.commit()
+    # conn.close()
 
 
 def Create_Tables():
@@ -76,6 +76,7 @@ def order_table():
                 year        INT        NOT NULL,
                 time       VARCHAR        NOT NULL,
                 AMPM       TEXT        NOT NULL,
+                Price      FLOAT       NOT NULL,
                 FOREIGN KEY (custID) REFERENCES cust_Details (custID));''')
     print("Customer Details table is created succesfully")
 
@@ -121,7 +122,6 @@ def insertdata(username1,password1):
 
 
 def username_validation(username, password):
-    from Mainpage import homepage
     conn = sqlite3.connect('Mincrete.db')
     cursor=conn.cursor()
     cursor.execute("SELECT * FROM Login_details where Username=? and Password=?",
@@ -156,14 +156,14 @@ def search_orders(Order_num):
     conn.close()
     return found
 
-def dump():
-    conn = sqlite3.connect('Mincrete.db')
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM cust_details")
-    found = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return found
+# def dump():
+#     conn = sqlite3.connect('Mincrete.db')
+#     cursor = conn.cursor()
+#     cursor.execute("SELECT * FROM cust_details")
+#     found = cursor.fetchall()
+#     cursor.close()
+#     conn.close()
+#     return found
 
 
 
@@ -194,15 +194,22 @@ def customer_insert(order, customer):
 
 
 
-        try:
-            if customer[0] == results[0]:
-                if customer[2] == results[2]:
-                    if customer[1] == results[6]:
-                        CustomerID = customer[0]
-                        orderDet_insert(order, CustomerID)
-        except:
+        if customer[0] == results[0]:
+            if customer[2] == results[2]:
+                if customer[1] == results[6]:
+                    CustomerID = customer[0]
+                    orderDet_insert(order, CustomerID)
+                else:
+                    messagebox.showinfo("info", "No details were found")
+                    homepage()
+            else:
+                messagebox.showinfo("info", "No details were found")
+                homepage()
+        else:
             messagebox.showinfo("info", "No details were found")
-            Mainpage.homepage()
+            homepage()
+
+
 
 
         conn.commit()
@@ -228,12 +235,12 @@ def orderDet_insert(order, CustomerID):
     conn = sqlite3.connect('Mincrete.db')
     cursor = conn.cursor()
     cursor.execute('''insert into order_details (orderID, custID, length, width, depth,
-     concrete, day, month, year, time, AMPM) 
-    values (?,?,?,?,?,?,?,?,?,?,?)''',(OrderID, CustomerID, order[0],order[1],order[2],order[3],order[4],
-                                   order[5],order[6], order[7], order[8]))
+     concrete, day, month, year, time, AMPM, Price) 
+    values (?,?,?,?,?,?,?,?,?,?,?,?)''',(OrderID, CustomerID, order[0],order[1],order[2],order[3],order[4],
+                                   order[5],order[6], order[7], order[8], order[9]))
     conn.commit()
     conn.close()
-    Mainpage.homepage()
+    homepage()
 
 
 

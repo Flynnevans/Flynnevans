@@ -1,2 +1,1 @@
-def hello():
-    print("hello")
+print(14 // 4)
