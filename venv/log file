@@ -16,8 +16,9 @@ sql database help ^^^
 
 
 
-fix circular input
-fix date and time errors
-add the dit and remove order feature
+/fix circular input, only on login screen
+fix  time errors
+allow error when account doesnt exist
+add the edit
 add the edit and remove accounts feature
 clean up program,

@@ -6,6 +6,7 @@ from time import strftime
 # from Mainpage import homepage
 
 
+
 def windowswap(close, open):
     close
     open
@@ -36,7 +37,17 @@ def Create_Tables():
     conn.close()
 
 
-
+def DeleteRecord(customerid, days, months, years):
+    try:
+        conn = sqlite3.connect('Mincrete.db')
+        conn.execute("DELETE FROM order_details WHERE  custID =? and day =? and month =? and year =?", (customerid, days,
+                                                                                               months, years))
+    except:
+        print("error")
+    else:
+        print("succsess")
+        conn.commit()
+        conn.close()
 
 
 
@@ -201,13 +212,13 @@ def customer_insert(order, customer):
                     orderDet_insert(order, CustomerID)
                 else:
                     messagebox.showinfo("info", "No details were found")
-                    homepage()
+
             else:
                 messagebox.showinfo("info", "No details were found")
-                homepage()
+
         else:
             messagebox.showinfo("info", "No details were found")
-            homepage()
+
 
 
 
@@ -240,7 +251,7 @@ def orderDet_insert(order, CustomerID):
                                    order[5],order[6], order[7], order[8], order[9]))
     conn.commit()
     conn.close()
-    homepage()
+
 
 
 
@@ -252,4 +263,5 @@ if __name__ == '__main__':
     # order_table()
     # customer_table()
     #print(dump())
+    #DeleteRecord()
     pass
