@@ -6,6 +6,7 @@ from time import strftime
 # from Mainpage import homepage
 
 
+
 def windowswap(close, open):
     close
     open
@@ -201,13 +202,13 @@ def customer_insert(order, customer):
                     orderDet_insert(order, CustomerID)
                 else:
                     messagebox.showinfo("info", "No details were found")
-                    homepage()
+
             else:
                 messagebox.showinfo("info", "No details were found")
-                homepage()
+
         else:
             messagebox.showinfo("info", "No details were found")
-            homepage()
+
 
 
 
@@ -240,7 +241,7 @@ def orderDet_insert(order, CustomerID):
                                    order[5],order[6], order[7], order[8], order[9]))
     conn.commit()
     conn.close()
-    homepage()
+
 
 
 

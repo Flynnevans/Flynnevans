@@ -193,6 +193,8 @@ def order_details(custdet):
 
 
                 volume = (length * width * depth) / 1000000
+                if volume < 0.25:
+                    volume = 0.25
                 if volume > 8:
                     n = volume // 8
                     n = n * 1050
@@ -211,23 +213,30 @@ def order_details(custdet):
                 x = str(year_input.get())
                 y = str(month_input.get())
                 z = str(day_input.get())
+
+
+
                 if int(a[6:8]) < int(x[2:4]):
                     insert_orders(length, width, depth, concrete, day, month, year, time, AMPM, price)
                 elif int(a[6:8]) == int(x[2:4]):
 
-                    if int(a[3:5]) < int(z):
+                    if int(a[0:2]) < int(y):
                         insert_orders(length, width, depth, concrete, day, month, year, time, AMPM, price)
-                    elif int(a[3:5]) == int(z):
-                        if int(a[0:2]) < int(y):
+                    elif int(a[0:2]) == int(y):
+                        if int(a[3:5]) < int(z):
                             insert_orders(length, width, depth, concrete, day, month, year, time, AMPM, price)
-                        elif int(a[0:2]) == int(y):
+                        elif int(a[3:5]) == int(z):
                             messagebox.showinfo("Info", "Same day delivery is not available")
+                            homepage()
                         else:
                             messagebox.showinfo("Error", "That date is invalid")
+                            homepage()
                     else:
                         messagebox.showinfo("Error", "That date is invalid")
+                        homepage()
                 else:
                     messagebox.showinfo("Error", "That date is invalid")
+                    homepage()
 
 
     confirm_button = Button(buttonFrame, text="Confirm", width=12, height=3, bg="#C6CFFF",
@@ -255,6 +264,7 @@ def insert_orders(length, width, depth, concrete, day, month, year, time, AMPM, 
     result = messagebox.askquestion('Confirm', messagetext)
     if result == 'yes':
         database_manage.customer_insert(orderdetails,customerdetails)
+        homepage()
 
     else:
         windowswap(orderDet.destroy(), order_details())

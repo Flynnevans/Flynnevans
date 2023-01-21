@@ -1,5 +1,5 @@
 from tkinter import *
-from loginSignup import *
+from database_manage import *
 
 def windowswap(close, open):
     close
