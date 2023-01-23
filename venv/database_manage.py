@@ -38,16 +38,45 @@ def Create_Tables():
 
 
 def DeleteRecord(customerid, days, months, years):
+
+
+
+
+    conn = sqlite3.connect('Mincrete.db')
+    cursor = conn.cursor()
+    cursor = conn.execute("SELECT * FROM order_Details WHERE custID =? and day =? and month =? and year =?", (customerid,
+                                                                                                              days, months,
+                                                                                                              years))
+    results = cursor.fetchone()
     try:
-        conn = sqlite3.connect('Mincrete.db')
-        conn.execute("DELETE FROM order_details WHERE  custID =? and day =? and month =? and year =?", (customerid, days,
-                                                                                               months, years))
+        if customerid == results[1]:
+            if days == results[6]:
+                if months == results[7]:
+                    if years == results[8]:
+                        conn.execute("DELETE FROM order_details WHERE  custID =? and day =? and month =? and year =?",
+                                     (customerid, days,
+                                      months, years))
+
+                        conn.commit()
+                        conn.close()
+                    else:
+                        messagebox.showinfo("info", "No details were found")
+
+                else:
+                    messagebox.showinfo("info", "No details were found")
+
+            else:
+                messagebox.showinfo("info", "No details were found")
+        else:
+            messagebox.showinfo("info", "No details were found")
     except:
-        print("error")
+        messagebox.showinfo("info", "No details were found")
     else:
-        print("succsess")
-        conn.commit()
-        conn.close()
+        messagebox.showinfo("info", "Order has been removed")
+
+
+
+
 
 
 
