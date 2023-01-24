@@ -598,48 +598,21 @@ def account_edit():
 
 
 def Remove_orderPage():
-
-
-
     remove_orders = Tk()
     remove_orders.title("Remove_orders")
-    remove_orders.geometry("450x200")
+    remove_orders.geometry("450x250")
 
     remove_orders.config(bg="#728c8d")
-
-
-    orders_menu = Menu(remove_orders)
-    remove_orders.config(menu=orders_menu)
-
-
-    home_menu = Menu(orders_menu)
-    account_menu = Menu(orders_menu)
-    orders_menu = Menu(orders_menu)
-    calculator_menu = Menu(orders_menu)
-    schedule_menu = Menu(orders_menu)
-
-    orders_menu.add_cascade(label="Home", menu=home_menu)
-    orders_menu.add_cascade(label="Accounts", menu=account_menu)
-    orders_menu.add_cascade(label="Orders", menu=orders_menu)
-    orders_menu.add_cascade(label="Calculator", menu=calculator_menu)
-    orders_menu.add_cascade(label="Schedule", menu=schedule_menu)
-
+######################################
     textFrame = Frame(remove_orders, bg="#728c8d", width="450", height="100")
     textFrame.grid(column=0, row=0)
 
-    buttonFrame = Frame(remove_orders, bg="#728c8d", width="450", height="100")
-    buttonFrame.grid(column=0, row=1)
+    dateframe = Frame(remove_orders, bg="#728c8d", width="450", height="100")
+    dateframe.grid(column=0, row=1)
 
-    home_menu.add_command(label="Home", command=lambda: windowswap(remove_orders.destroy(), homepage()))
-    home_menu.add_command(label="Exit", command=lambda: remove_orders.destroy())
-
-    account_menu.add_command(label="Accounts", command=lambda: windowswap(remove_orders.destroy(), accountsPage()))
-
-    orders_menu.add_command(label="Remove order", command=lambda: windowswap(remove_orders.destroy(), Remove_orderPage()))
-    orders_menu.add_command(label="Edit order", command=lambda: windowswap(remove_orders.destroy(), accountsPage()))
-    orders_menu.add_command(label="View orders", command=lambda: windowswap(remove_orders.destroy(), accountsPage()))
-
-
+    buttonFrame = Frame(remove_orders, bg="#728c8d", width="450", height="50")
+    buttonFrame.grid(column=0, row=2)
+#####################################
 
 
     remove_orders_label = Label(textFrame, text="Welcome to the order removal page")
@@ -647,6 +620,57 @@ def Remove_orderPage():
     remove_orders_label.config(bg="#728c8d")
     remove_orders_label.grid(row=0, column=0, columnspan=1, sticky="NSEW", pady=10, padx=10)
 
+
+
+
+    Id_label = Label(dateframe, text="Customer ID:")
+    Id_label.config(font=("arial", 9), bg="#728c8d")
+    Id_label.grid(row=0, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    Id_input = StringVar()
+    Idinput = Entry(dateframe, width=15, bg="#aaaaaa", textvariable=Id_input)
+    Idinput.grid(row=0, column=1, padx=10, pady=10)
+
+
+    date_label = Label(dateframe, text="Date:")
+    date_label.config(font=("arial", 9), bg="#728c8d")
+    date_label.grid(row=1, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    days = ["01", "02", "03", "04", "05", "06", "7", "8", "9", "10",
+            "11", "12", "13", "14", "15", "16", "17", "18",
+            "19", "20", "21", "22", "23", "24", "25", "26",
+            "27", "28", "29", "30", "31"]
+
+    day_input = IntVar()
+    day_input.set("DD")
+    dayinput = OptionMenu(dateframe, day_input, *days)
+    dayinput.config(bg="#aaaaaa")
+    dayinput.grid(row=1, column=1, padx=5, pady=10)
+
+    month = ["01", "02", "03", "04", "05", "06", "7", "8", "9", "10",
+             "11", "12"]
+
+    month_input = IntVar()
+    month_input.set("MM")
+    monthinput = OptionMenu(dateframe, month_input, *month)
+    monthinput.config(bg="#aaaaaa")
+    monthinput.grid(row=1, column=2, padx=5, pady=10)
+
+    year = ["2023", "2024", "2025"]
+
+    year_input = IntVar()
+    year_input.set("YYYY")
+    yearinput = OptionMenu(dateframe, year_input, *year)
+    yearinput.config(bg="#aaaaaa")
+    yearinput.grid(row=1, column=3, padx=20, pady=10)
+
+    exit_button = Button(buttonFrame, text="Exit", width=12, height=3, bg="#C6CFFF",
+                                command=lambda: windowswap(remove_orders.destroy(), homepage()))
+    exit_button.grid(row=0, column=0, padx=10, pady=10)
+
+    delete_button = Button(buttonFrame, text="Delete Order", width=12, height=3, bg="#C6CFFF",
+                         command=lambda: database_manage.DeleteRecord(Id_input.get(),day_input.get(), month_input.get(), year_input.get()))
+    delete_button.grid(row=0, column=1, padx=10, pady=10)
 
     remove_orders.mainloop()
 
@@ -708,6 +732,12 @@ def accountsPage():
     accountMenu_label.config(font=("arial", 12))
     accountMenu_label.config(bg="#728c8d")
     accountMenu_label.grid(row=0, column=0, columnspan=1, sticky="NSEW", pady=10, padx=10)
+
+
+
+
+
+
 
 
     accounts.mainloop()
