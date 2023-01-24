@@ -506,82 +506,82 @@ def account_add():
 
     accounts_add.mainloop()
 
-def updatepass_user(username, newpass):
-    conn = sqlite3.connect('Mincrete.db')
-    cursor = conn.cursor()
-    cursor.execute("UPDATE Login_details Set Password = ? WHERE Username = ?", newpass, username)
-    conn.commit()
-    messagebox.showinfo("info", "password change was successful")
-    conn.close()
-
-
-def pass_editor(username, password1):
-    pass_edit = Tk()
-    pass_edit.title("Editor")
-    pass_edit.geometry("300x150")
-    pass_edit.config(bg="#728c8d")
-
-    textFrame = Frame(pass_edit, bg="#728c8d", width="200", height="90")
-    textFrame.grid(column=0, row=0)
-    buttonFrame = Frame(pass_edit, bg="#728c8d", width="200", height="60")
-    buttonFrame.grid(column=0, row=1)
-
-    newPass_input = StringVar()
-    newPassinput = Entry(textFrame, width=15, bg="#aaaaaa", textvariable=newPass_input)
-    newPassinput.grid(row=1, column=1, padx=10, pady=10)
-
-    password_label = Label(textFrame, text="New Password:")
-    password_label.config(font=("arial", 9), bg="#728c8d")
-    password_label.grid(row=1, column=0, columnspan=1, sticky="NE", pady=10, padx=10)
-
-    conn = sqlite3.connect('Mincrete.db')
-    cursor = conn.cursor()
-
-    edit_pass_button = Button(buttonFrame, text="Edit Password", width=12, height=3, bg="#C6CFFF",
-                              command=lambda: updatepass_user(username,newPass_input))
-    edit_pass_button.grid(row=1, column=1, padx=25, pady=10)
-
-
-
-
-def account_edit():
-    accounts_edit = Tk()
-    accounts_edit.title("Edit")
-    accounts_edit.geometry("300x150")
-    accounts_edit.config(bg="#728c8d")
-
-    textFrame = Frame(accounts_edit, bg="#728c8d", width="200", height="90")
-    textFrame.grid(column=0, row=0)
-    buttonFrame = Frame(accounts_edit, bg="#728c8d", width="200", height="60")
-    buttonFrame.grid(column=0, row=1)
-
-    User_input = StringVar()
-    Userinput = Entry(textFrame, width=15, bg="#aaaaaa", textvariable=User_input)
-    Userinput.grid(row=0, column=1, padx=10, pady=10)
-
-    Pass_input = StringVar()
-    Passinput = Entry(textFrame, width=15, bg="#aaaaaa", textvariable=Pass_input)
-    Passinput.grid(row=1, column=1, padx=10, pady=10)
-
-    username_label = Label(textFrame, text="Username:")
-    username_label.config(font=("arial", 9), bg="#728c8d")
-    username_label.grid(row=0, column=0, columnspan=1, sticky="NE", pady=10, padx=10)
-
-    password_label = Label(textFrame, text="Password:")
-    password_label.config(font=("arial", 9), bg="#728c8d")
-    password_label.grid(row=1, column=0, columnspan=1, sticky="NE", pady=10, padx=10)
-
-    editpass_button = Button(buttonFrame, text="Edit password", width=12, height=3, bg="#C6CFFF",
-                           command=lambda: (pass_editor(Userinput.get(), Passinput.get())))
-    editpass_button.grid(row=1, column=2, padx=25, pady=10)
-
-    edit_user_button = Button(buttonFrame, text="Edit username", width=12, height=3, bg="#C6CFFF",
-                         command=lambda: (editor(Userinput.get(), Passinput.get())))
-    edit_user_button.grid(row=1, column=1, padx=25, pady=10)
-
-    accounts_edit.mainloop()
-
-
+# def updatepass_user(username, newpass):
+#     conn = sqlite3.connect('Mincrete.db')
+#     cursor = conn.cursor()
+#     cursor.execute("UPDATE Login_details Set Password = ? WHERE Username = ?", newpass, username)
+#     conn.commit()
+#     messagebox.showinfo("info", "password change was successful")
+#     conn.close()
+#
+#
+# def pass_editor(username, password1):
+#     pass_edit = Tk()
+#     pass_edit.title("Editor")
+#     pass_edit.geometry("300x150")
+#     pass_edit.config(bg="#728c8d")
+#
+#     textFrame = Frame(pass_edit, bg="#728c8d", width="200", height="90")
+#     textFrame.grid(column=0, row=0)
+#     buttonFrame = Frame(pass_edit, bg="#728c8d", width="200", height="60")
+#     buttonFrame.grid(column=0, row=1)
+#
+#     newPass_input = StringVar()
+#     newPassinput = Entry(textFrame, width=15, bg="#aaaaaa", textvariable=newPass_input)
+#     newPassinput.grid(row=1, column=1, padx=10, pady=10)
+#
+#     password_label = Label(textFrame, text="New Password:")
+#     password_label.config(font=("arial", 9), bg="#728c8d")
+#     password_label.grid(row=1, column=0, columnspan=1, sticky="NE", pady=10, padx=10)
+#
+#     conn = sqlite3.connect('Mincrete.db')
+#     cursor = conn.cursor()
+#
+#     edit_pass_button = Button(buttonFrame, text="Edit Password", width=12, height=3, bg="#C6CFFF",
+#                               command=lambda: updatepass_user(username,newPass_input))
+#     edit_pass_button.grid(row=1, column=1, padx=25, pady=10)
+#
+#
+#
+#
+# def account_edit():
+#     accounts_edit = Tk()
+#     accounts_edit.title("Edit")
+#     accounts_edit.geometry("300x150")
+#     accounts_edit.config(bg="#728c8d")
+#
+#     textFrame = Frame(accounts_edit, bg="#728c8d", width="200", height="90")
+#     textFrame.grid(column=0, row=0)
+#     buttonFrame = Frame(accounts_edit, bg="#728c8d", width="200", height="60")
+#     buttonFrame.grid(column=0, row=1)
+#
+#     User_input = StringVar()
+#     Userinput = Entry(textFrame, width=15, bg="#aaaaaa", textvariable=User_input)
+#     Userinput.grid(row=0, column=1, padx=10, pady=10)
+#
+#     Pass_input = StringVar()
+#     Passinput = Entry(textFrame, width=15, bg="#aaaaaa", textvariable=Pass_input)
+#     Passinput.grid(row=1, column=1, padx=10, pady=10)
+#
+#     username_label = Label(textFrame, text="Username:")
+#     username_label.config(font=("arial", 9), bg="#728c8d")
+#     username_label.grid(row=0, column=0, columnspan=1, sticky="NE", pady=10, padx=10)
+#
+#     password_label = Label(textFrame, text="Password:")
+#     password_label.config(font=("arial", 9), bg="#728c8d")
+#     password_label.grid(row=1, column=0, columnspan=1, sticky="NE", pady=10, padx=10)
+#
+#     editpass_button = Button(buttonFrame, text="Edit password", width=12, height=3, bg="#C6CFFF",
+#                            command=lambda: (pass_editor(Userinput.get(), Passinput.get())))
+#     editpass_button.grid(row=1, column=2, padx=25, pady=10)
+#
+#     edit_user_button = Button(buttonFrame, text="Edit username", width=12, height=3, bg="#C6CFFF",
+#                          command=lambda: (editor(Userinput.get(), Passinput.get())))
+#     edit_user_button.grid(row=1, column=1, padx=25, pady=10)
+#
+#     accounts_edit.mainloop()
+#
+#
 
 
 
@@ -673,6 +673,107 @@ def Remove_orderPage():
     delete_button.grid(row=0, column=1, padx=10, pady=10)
 
     remove_orders.mainloop()
+def editorder():
+
+    edit_order = Tk()
+    edit_order.title("Edit Orders")
+    edit_order.geometry("450x300")
+
+    edit_order.config(bg="#728c8d")
+
+    textFrame = Frame(edit_order, bg="#728c8d", width="450", height="100")
+    textFrame.grid(column=0, row=0)
+
+    dateframe = Frame(edit_order, bg="#728c8d", width="450", height="150")
+    dateframe.grid(column=0, row=1)
+
+    buttonFrame = Frame(edit_order, bg="#728c8d", width="450", height="50")
+    buttonFrame.grid(column=0, row=2)
+
+
+    remove_orders_label = Label(textFrame, text="Welcome to the order editing page")
+    remove_orders_label.config(font=("arial", 12))
+    remove_orders_label.config(bg="#728c8d")
+    remove_orders_label.grid(row=0, column=0, columnspan=1, sticky="NSEW", pady=10, padx=10)
+
+    Id_label = Label(dateframe, text="Customer ID:")
+    Id_label.config(font=("arial", 9), bg="#728c8d")
+    Id_label.grid(row=0, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    Id_input = StringVar()
+    Idinput = Entry(dateframe, width=15, bg="#aaaaaa", textvariable=Id_input)
+    Idinput.grid(row=0, column=1, padx=10, pady=10)
+
+    date_label = Label(dateframe, text="Date:")
+    date_label.config(font=("arial", 9), bg="#728c8d")
+    date_label.grid(row=1, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    days = ["01", "02", "03", "04", "05", "06", "7", "8", "9", "10",
+            "11", "12", "13", "14", "15", "16", "17", "18",
+            "19", "20", "21", "22", "23", "24", "25", "26",
+            "27", "28", "29", "30", "31"]
+
+    day_input = IntVar()
+    day_input.set("DD")
+    dayinput = OptionMenu(dateframe, day_input, *days)
+    dayinput.config(bg="#aaaaaa")
+    dayinput.grid(row=1, column=1, padx=5, pady=10)
+
+    month = ["01", "02", "03", "04", "05", "06", "7", "8", "9", "10",
+             "11", "12"]
+
+    month_input = IntVar()
+    month_input.set("MM")
+    monthinput = OptionMenu(dateframe, month_input, *month)
+    monthinput.config(bg="#aaaaaa")
+    monthinput.grid(row=1, column=2, padx=5, pady=10)
+
+    year = ["2023", "2024", "2025"]
+
+    year_input = IntVar()
+    year_input.set("YYYY")
+    yearinput = OptionMenu(dateframe, year_input, *year)
+    yearinput.config(bg="#aaaaaa")
+    yearinput.grid(row=1, column=3, padx=20, pady=10)
+
+
+
+    time_label = Label(dateframe, text="Time(HH:MM):")
+    time_label.config(font=("arial", 9), bg="#728c8d")
+    time_label.grid(row=2, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    time_input = StringVar()
+    timeinput = Entry(dateframe, width=15, bg="#aaaaaa", textvariable=time_input)
+    timeinput.grid(row=2, column=1, padx=10, pady=10)
+
+    AMPM_input = StringVar()
+    AMPM_input.set("AM/PM")
+    AMPMinput = OptionMenu(dateframe, AMPM_input, "AM", "PM")
+    AMPMinput.config(bg="#aaaaaa")
+    AMPMinput.grid(row=2, column=2, padx=10, pady=10)
+
+
+
+
+
+
+
+
+
+
+    exit_button = Button(buttonFrame, text="Exit", width=12, height=3, bg="#C6CFFF",
+                         command=lambda: windowswap(edit_orders.destroy(), homepage()))
+    exit_button.grid(row=0, column=0, padx=10, pady=10)
+
+    edit_button = Button(buttonFrame, text="Delete Order", width=12, height=3, bg="#C6CFFF",
+                           command=lambda: database_manage.EditRecord(Id_input.get(), day_input.get(),
+                                                                        month_input.get(), year_input.get(),
+                                                                        AMPM_input, time_input))
+    edit_button.grid(row=0, column=1, padx=10, pady=10)
+
+    edit_button.mainloop()
+
+
 
 
 def accountsPage():
@@ -713,7 +814,7 @@ def accountsPage():
     accounts_menu.add_command(label="Accounts", command=lambda: windowswap(accounts.destroy(), accountsPage()))
 
     orders_menu.add_command(label="Remove order", command=lambda: windowswap(accounts.destroy(), Remove_orderPage()))
-    orders_menu.add_command(label="Edit order", command=lambda: windowswap(accounts.destroy(), accountsPage()))
+    orders_menu.add_command(label="Edit order", command=lambda: windowswap(accounts.destroy(), editorder()))
     orders_menu.add_command(label="View orders", command=lambda: windowswap(accounts.destroy(), accountsPage()))
 
     edit_button = Button(buttonFrame, text="Edit account", width=12, height=3, bg="#C6CFFF",
@@ -819,7 +920,7 @@ def homepage():
     accounts_menu.add_command(label="Accounts", command=lambda: windowswap(home.destroy(), accountsPage()))
 
     orders_menu.add_command(label="Remove order", command=lambda: windowswap(home.destroy(), Remove_orderPage()))
-    orders_menu.add_command(label="Edit order", command=lambda: windowswap(home.destroy(), accountsPage()))
+    orders_menu.add_command(label="Edit order", command=lambda: windowswap(home.destroy(), editorder()))
     orders_menu.add_command(label="View orders", command=lambda: windowswap(home.destroy(), accountsPage()))
 
     lbl = Label(center_frame, font=("calibri", 15, "bold"),

@@ -1,5 +1,5 @@
 from tkinter import *
-from database_manage import *
+from page_switch import *
 
 def windowswap(close, open):
     close
