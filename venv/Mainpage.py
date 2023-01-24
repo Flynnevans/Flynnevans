@@ -17,9 +17,10 @@ def homepageswap():
 
 
 
-def order_details(custdet):
+def order_details(custdet, ):
     global customerdetails
     customerdetails = custdet
+
 
     orderDet = Tk()
     orderDet.title("Order Details")
@@ -673,22 +674,32 @@ def Remove_orderPage():
     delete_button.grid(row=0, column=1, padx=10, pady=10)
 
     remove_orders.mainloop()
+
+
+
+
+
+
+
+
 def editorder():
 
     edit_order = Tk()
     edit_order.title("Edit Orders")
-    edit_order.geometry("450x300")
+    edit_order.geometry("450x400")
 
     edit_order.config(bg="#728c8d")
 
     textFrame = Frame(edit_order, bg="#728c8d", width="450", height="100")
     textFrame.grid(column=0, row=0)
 
-    dateframe = Frame(edit_order, bg="#728c8d", width="450", height="150")
+    dateframe = Frame(edit_order, bg="#728c8d", width="450", height="350")
     dateframe.grid(column=0, row=1)
 
+
+
     buttonFrame = Frame(edit_order, bg="#728c8d", width="450", height="50")
-    buttonFrame.grid(column=0, row=2)
+    buttonFrame.grid(column=0, row=3)
 
 
     remove_orders_label = Label(textFrame, text="Welcome to the order editing page")
@@ -752,6 +763,24 @@ def editorder():
     AMPMinput.config(bg="#aaaaaa")
     AMPMinput.grid(row=2, column=2, padx=10, pady=10)
 
+    postcode_label = Label(dateframe, text="Postcode:")
+    postcode_label.config(font=("arial", 9), bg="#728c8d")
+    postcode_label.grid(row=3, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    postcode_input = StringVar()
+    postcodeinput = Entry(dateframe, width=15, bg="#aaaaaa", textvariable=postcode_input)
+    postcodeinput.grid(row=3, column=1, padx=10, pady=10)
+    # -------------------------------
+
+    sname_label = Label(dateframe, text="Surname Name:")
+    sname_label.config(font=("arial", 9), bg="#728c8d")
+    sname_label.grid(row=4, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    surname_input = StringVar()
+    surnameinput = Entry(dateframe, width=15, bg="#aaaaaa", textvariable=surname_input)
+    surnameinput.grid(row=4, column=1, padx=10, pady=10)
+
+
 
 
 
@@ -765,13 +794,24 @@ def editorder():
                          command=lambda: windowswap(edit_orders.destroy(), homepage()))
     exit_button.grid(row=0, column=0, padx=10, pady=10)
 
-    edit_button = Button(buttonFrame, text="Delete Order", width=12, height=3, bg="#C6CFFF",
-                           command=lambda: database_manage.EditRecord(Id_input.get(), day_input.get(),
-                                                                        month_input.get(), year_input.get(),
-                                                                        AMPM_input, time_input))
+    edit_button = Button(buttonFrame, text="Edit Order", width=12, height=3, bg="#C6CFFF",
+                           command=lambda: windowswap(edit_order.destroy(),order_details([Id_input.get(),
+                                                                                          postcode_input.get(),
+                                                                                          surname_input.get()],
+                                                                                         [Id_input.get(),
+                                                                                          day_input.get(),
+                                                                                          month_input.get(),
+                                                                                          year_input.get(),
+                                                                                          AMPM_input.get(),
+                                                                                          time_input.get()]))
     edit_button.grid(row=0, column=1, padx=10, pady=10)
 
     edit_button.mainloop()
+
+
+
+
+
 
 
 

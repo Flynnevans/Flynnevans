@@ -37,6 +37,71 @@ def Create_Tables():
     conn.close()
 
 
+
+
+
+
+def EditRecord(customerid, days, months, years, AMPM, time):
+
+
+
+
+    conn = sqlite3.connect('Mincrete.db')
+    cursor = conn.cursor()
+    cursor = conn.execute("SELECT * FROM order_Details WHERE custID =? and day =? and month =? and year =? and AMPM =? and time =?", (customerid,
+                                                                                                              days, months,
+                                                                                                              years,AMPM, time))
+    results = cursor.fetchone()
+    try:
+        if customerid == results[1]:
+            if days == results[6]:
+                if months == results[7]:
+                    if years == results[8]:
+                        if AMPM == results[10]:
+                            if time == results [9]:
+                                conn.execute("DELETE FROM order_details WHERE  custID =? and day =? and month =? and year =?",
+                                             (customerid, days,
+                                              months, years))
+
+                                conn.commit()
+                                conn.close()
+                            else:
+                                messagebox.showinfo("info", "No details were found")
+                        else:
+                            messagebox.showinfo("info", "No details were found")
+                    else:
+                        messagebox.showinfo("info", "No details were found")
+
+                else:
+                    messagebox.showinfo("info", "No details were found")
+
+            else:
+                messagebox.showinfo("info", "No details were found")
+        else:
+            messagebox.showinfo("info", "No details were found")
+    except:
+        messagebox.showinfo("info", "No details were found")
+    else:
+        messagebox.showinfo("info", "Order has been removed")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def DeleteRecord(customerid, days, months, years):
 
 
