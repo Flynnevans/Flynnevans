@@ -16,9 +16,8 @@ sql database help ^^^
 
 
 
-/fix circular input, only on login screen
-fix  time errors
-allow error when account doesnt exist
-add the edit
+fix login errors, signup error, opening homepage error
+fix  time error
+add the edit feature
 add the edit and remove accounts feature
 clean up program,
