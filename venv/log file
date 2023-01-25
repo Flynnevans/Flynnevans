@@ -18,6 +18,6 @@ sql database help ^^^
 
 fix login errors, signup error, opening homepage error
 fix  time error
-add the edit feature, line 800, fix problem with verifying new data and allowing for no errors
+add view orders and add schedual
 add the edit and remove accounts feature
 clean up program,
