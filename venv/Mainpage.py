@@ -866,7 +866,7 @@ def neworderdetails(olddets):
                     n = volume // 8
                     n = n * 1050
                     volume = volume // 8
-                    preprice = (concrete_price(concrete, volume))
+                    preprice = (concrete_price(newconcrete, volume))
                     loads = volume // 8
                     price = preprice + (loads * 25) + n
                     print(price)
