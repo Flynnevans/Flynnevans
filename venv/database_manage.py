@@ -83,7 +83,7 @@ def DeleteRecord(customerid, days, months, years):
 
     conn = sqlite3.connect('Mincrete.db')
     cursor = conn.cursor()
-    cursor = conn.execute("SELECT * FROM order_Details WHERE custID =? and day =? and month =? and year =?", (customerid,
+    cursor = conn.execute("SELECT * FROM order_details WHERE custID =? and day =? and month =? and year =?", (customerid,
                                                                                                               days, months,
                                                                                                               years))
     results = cursor.fetchone()
@@ -174,14 +174,14 @@ def delete_account(x,y):
 
 
 
-def search_orders(Order_num):
-    conn = sqlite3.connect('Mincrete.db')
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM order_details where orderid = ?", (Order_num, ))
-    found = cursor.fetchall()
-    cursor.close()
-    conn.close()
-    return found
+# def search_orders(Order_num):
+#     conn = sqlite3.connect('Mincrete.db')
+#     cursor = conn.cursor()
+#     cursor.execute("SELECT * FROM order_details where orderid = ?", (Order_num, ))
+#     found = cursor.fetchall()
+#     cursor.close()
+#     conn.close()
+#     return found
 
 # def dump():
 #     conn = sqlite3.connect('Mincrete.db')
