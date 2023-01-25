@@ -17,7 +17,7 @@ def homepageswap():
 
 
 
-def order_details(custdet, ):
+def order_details(custdet ):
     global customerdetails
     customerdetails = custdet
 

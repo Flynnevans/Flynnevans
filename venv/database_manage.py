@@ -48,12 +48,18 @@ def EditRecord(old,new):
 
     conn = sqlite3.connect('Mincrete.db')
     cursor = conn.cursor()
-    cursor = conn.execute("SELECT * FROM order_Details WHERE custID =? and day =? and month =? and year =? and AMPM =? and time =?", (old[0],old[1],old[2],old[3],old[5],old[4]))
+    print(old[0],old[1],old[2],old[3],old[5],old[4])
+    cursor = conn.execute("SELECT * FROM order_details WHERE custID =? and day =? and month =? and year =? and AMPM =? and time =?", (old[0],old[1],old[2],old[3],old[5],old[4]))
     results = cursor.fetchone()
+    print(results)
     try:
+
         if old[0] == results[1]:
+            print("1")
             if old[1]== results[6]:
+                print("2")
                 if old[2] == results[7]:
+                    print("3")
                     if old[3] == results[8]:
                         if old[5] == results[10]:
                             if old[4] == results [9]:
@@ -67,23 +73,23 @@ def EditRecord(old,new):
                                 conn.execute('''UPDATE order_details  SET time = ? WHERE orderID = ? ''',(new[7], results[0]))
                                 conn.execute('''UPDATE order_details  SET AMPM = ? WHERE orderID = ? ''',(new[8], results[0]))
                                 conn.execute('''UPDATE order_details  SET price = ? WHERE orderID = ? ''', (new[9], results[0]))
-
+                                print("hello")
                                 conn.commit()
                                 conn.close()
-                            else:
-                                messagebox.showinfo("info", "No details were found")
-                        else:
-                            messagebox.showinfo("info", "No details were found")
-                    else:
-                        messagebox.showinfo("info", "No details were found")
-
-                else:
-                    messagebox.showinfo("info", "No details were found")
-
-            else:
-                messagebox.showinfo("info", "No details were found")
-        else:
-            messagebox.showinfo("info", "No details were found")
+        #                     else:
+        #                         messagebox.showinfo("info", "No details were found")
+        #                 else:
+        #                     messagebox.showinfo("info", "No details were found")
+        #             else:
+        #                 messagebox.showinfo("info", "No details were found")
+        #
+        #         else:
+        #             messagebox.showinfo("info", "No details were found")
+        #
+        #     else:
+        #         messagebox.showinfo("info", "No details were found")
+        # else:
+        #     messagebox.showinfo("info", "No details were found")
     except:
         messagebox.showinfo("Error", "No details were found")
     else:
