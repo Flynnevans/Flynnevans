@@ -679,6 +679,244 @@ def Remove_orderPage():
 
 
 
+global olddetails
+
+def neworderdetails(olddets):
+    olddetails = olddets
+
+
+
+    orderedit = Tk()
+    orderedit.title("Edited Order")
+    orderedit.geometry("350x525")
+    orderedit.config(bg="#728c8d")
+
+    titleFrame = Frame(orderedit, bg="#728c8d", width="350", height="50")
+    titleFrame.grid(column=0, row=0)
+    detailsFrame = Frame(orderedit, bg="#728c8d", width="350", height="350")
+    detailsFrame.grid(column=0, row=1)
+    dateframe = Frame(orderedit, bg="#728c8d", width="350", height="50")
+    dateframe.grid(column=0, row=2)
+    buttonFrame = Frame(orderedit, bg="#728c8d", width="350", height="100")
+    buttonFrame.grid(column=0, row=3)
+
+    welcomelabel = Label(titleFrame, text="Edit Order:")
+    welcomelabel.config(font=("arial", 20))
+    welcomelabel.config(bg="#728c8d", justify='center')
+    welcomelabel.grid(row=0, column=0, columnspan=1, sticky="E", pady=30, padx=60)
+
+    length_label = Label(detailsFrame, text="Length(CM):")
+    length_label.config(font=("arial", 9), bg="#728c8d")
+    length_label.grid(row=0, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    length_input = IntVar()
+    lengthinput = Entry(detailsFrame, width=15, bg="#aaaaaa", textvariable=length_input)
+    lengthinput.grid(row=0, column=1, padx=10, pady=10)
+    # -----------------------------
+
+    width_label = Label(detailsFrame, text="Width(CM):")
+    width_label.config(font=("arial", 9), bg="#728c8d")
+    width_label.grid(row=1, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    width_input = IntVar()
+    widthinput = Entry(detailsFrame, width=15, bg="#aaaaaa", textvariable=width_input)
+    widthinput.grid(row=1, column=1, padx=10, pady=10)
+    # -------------------------------
+
+    depth_label = Label(detailsFrame, text="Depth(CM):")
+    depth_label.config(font=("arial", 9), bg="#728c8d")
+    depth_label.grid(row=2, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    depth_input = IntVar()
+    depthinput = Entry(detailsFrame, width=15, bg="#aaaaaa", textvariable=depth_input)
+    depthinput.grid(row=2, column=1, padx=10, pady=10)
+    # -------------------------------
+
+    concrete_label = Label(detailsFrame, text="Concrete:")
+    concrete_label.config(font=("arial", 9), bg="#728c8d")
+    concrete_label.grid(row=3, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    options = ["Gen1",
+               "Gen3",
+               "C20",
+               "C25",
+               "C30",
+               "C35",
+               "C40"]
+
+    Con_type_input = StringVar()
+    Con_type_input.set("CEM1 S2 ")
+    Con_typeinput = OptionMenu(detailsFrame, Con_type_input, *options)
+    Con_typeinput.config(bg="#aaaaaa")
+    Con_typeinput.grid(row=3, column=1, padx=10, pady=10)
+
+    # -------------------------------
+
+    date_label = Label(dateframe, text="Date:")
+    date_label.config(font=("arial", 9), bg="#728c8d")
+    date_label.grid(row=0, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    days = ["01","02","03","04","05","06","7","8","9","10",
+            "11","12","13","14","15","16","17","18",
+            "19","20","21","22","23","24","25","26",
+            "27","28","29","30","31"]
+
+    day_input = IntVar()
+    day_input.set("DD")
+    dayinput = OptionMenu(dateframe, day_input, *days)
+    dayinput.config(bg="#aaaaaa")
+    dayinput.grid(row=0, column=1, padx=5, pady=10)
+
+
+    month = ["01", "02", "03", "04", "05", "06", "7", "8", "9", "10",
+            "11", "12"]
+
+    month_input = IntVar()
+    month_input.set("MM")
+    monthinput = OptionMenu(dateframe, month_input, *month)
+    monthinput.config(bg="#aaaaaa")
+    monthinput.grid(row=0, column=2, padx=5, pady=10)
+
+
+
+    year = ["2023", "2024", "2025"]
+
+    year_input = IntVar()
+    year_input.set("YYYY")
+    yearinput = OptionMenu(dateframe, year_input, *year)
+    yearinput.config(bg="#aaaaaa")
+    yearinput.grid(row=0, column=3, padx=5, pady=10)
+    # -------------------------------
+
+    time_label = Label(detailsFrame, text="Time(HH:MM):")
+    time_label.config(font=("arial", 9), bg="#728c8d")
+    time_label.grid(row=4, column=0, columnspan=1, sticky="N", pady=10, padx=10)
+
+    time_input = StringVar()
+    timeinput = Entry(detailsFrame, width=15, bg="#aaaaaa", textvariable=time_input)
+    timeinput.grid(row=4, column=1, padx=10, pady=10)
+
+    AMPM_input = StringVar()
+    AMPM_input.set("AM/PM")
+    AMPMinput = OptionMenu(detailsFrame, AMPM_input, "AM", "PM")
+    AMPMinput.config(bg="#aaaaaa")
+    AMPMinput.grid(row=4, column=2, padx=10, pady=10)
+
+
+
+    #-----------------------------------
+
+
+
+
+    def editlist(olddetails):
+        global orderdetails, price
+
+
+
+        if AMPM_input.get() == "AM" and int(time_input.get()[0:2]) < 7:
+            messagebox.showinfo("info", "invalid time")
+
+        if AMPM_input.get() == "PM":
+            if int(time_input.get()[0:1]) >= 5 and int(time_input.get()[0:1]) != 12:
+                messagebox.showinfo("info", "invalid time")
+
+        if int(time_input.get()[0:1]) > 12:
+            messagebox.showinfo("info", "invalid time")
+
+
+        if int(time_input.get()[3:5]) > 59:
+            messagebox.showinfo("info", "invalid time")
+
+
+
+
+
+        else:
+            price = 0
+            volume = (length_input.get() * width_input.get() * depth_input.get()) / 1000000
+            if volume > 8:
+                messagebox.showinfo("Warning", "Additional mixers will be needed")
+            if volume > 30:
+                messagebox.showinfo("Info","Price reduction due to mass buy")
+                price = -150
+
+
+            if Con_type_input.get() == "CEM1 ":
+                messagebox.showinfo("info",
+                                    "No concrete type has been entered")
+                homepage()
+            else:
+
+                newAMPM = AMPM_input.get()
+                newtime = time_input.get()
+                newlength = length_input.get()
+                newwidth = width_input.get()
+                newdepth = depth_input.get()
+                newconcrete = Con_type_input.get()
+                newday = day_input.get()
+                newmonth = month_input.get()
+                newyear = year_input.get()
+
+
+                volume = (newlength * newwidth * newdepth) / 1000000
+                if volume < 0.25:
+                    volume = 0.25
+                if volume > 8:
+                    n = volume // 8
+                    n = n * 1050
+                    volume = volume // 8
+                    preprice = (concrete_price(concrete, volume))
+                    loads = volume // 8
+                    price = preprice + (loads * 25) + n
+                    print(price)
+                else:
+                    price = (concrete_price(newconcrete, volume))
+
+
+
+
+                a = strftime('%x')
+                x = str(year_input.get())
+                y = str(month_input.get())
+                z = str(day_input.get())
+
+                neworder=[newlength, newwidth, newdepth, newconcrete, newday, newmonth, newyear, newtime, newAMPM, price]
+
+                if int(a[6:8]) < int(x[2:4]):
+                    database_manage.EditRecord(olddetails,neworder)
+                elif int(a[6:8]) == int(x[2:4]):
+
+                    if int(a[0:2]) < int(y):
+                        database_manage.EditRecord(olddetails,neworder)
+                    elif int(a[0:2]) == int(y):
+                        if int(a[3:5]) < int(z):
+                            database_manage.EditRecord(olddetails,neworder)
+                        elif int(a[3:5]) == int(z):
+                            messagebox.showinfo("Info", "Same day delivery is not available")
+                            homepage()
+                        else:
+                            messagebox.showinfo("Error", "That date is invalid")
+                            homepage()
+                    else:
+                        messagebox.showinfo("Error", "That date is invalid")
+                        homepage()
+                else:
+                    messagebox.showinfo("Error", "That date is invalid")
+                    homepage()
+
+
+    confirm_button = Button(buttonFrame, text="Confirm", width=12, height=3, bg="#C6CFFF",
+                          command=lambda: windowswap(orderedit.destroy(), editlist(olddetails)))
+    confirm_button.grid(row=0, column=0, padx=25, pady=10)
+
+    return_button = Button(buttonFrame, text="Return", width=12, height=3, bg="#C6CFFF",
+                           command=lambda: windowswap(orderedit.destroy(), homepage()))
+    return_button.grid(row=0, column=1, padx=25, pady=10)
+
+    orderedit.mainloop()
+
+
 
 
 
@@ -795,15 +1033,11 @@ def editorder():
     exit_button.grid(row=0, column=0, padx=10, pady=10)
 
     edit_button = Button(buttonFrame, text="Edit Order", width=12, height=3, bg="#C6CFFF",
-                           command=lambda: windowswap(edit_order.destroy(),order_details([Id_input.get(),
-                                                                                          postcode_input.get(),
-                                                                                          surname_input.get()],
-                                                                                         [Id_input.get(),
-                                                                                          day_input.get(),
-                                                                                          month_input.get(),
-                                                                                          year_input.get(),
-                                                                                          AMPM_input.get(),
-                                                                                          time_input.get()]))
+                           command=lambda: windowswap(edit_order.destroy(),neworderdetails([Id_input.get(),day_input.get(),
+                                                                                           month_input.get(),year_input.get(),
+                                                                                           time_input.get(),AMPM_input.get(),
+                                                                                           postcode_input.get(),surname_input.get()])))
+
     edit_button.grid(row=0, column=1, padx=10, pady=10)
 
     edit_button.mainloop()

@@ -41,27 +41,32 @@ def Create_Tables():
 
 
 
-def EditRecord(customerid, days, months, years, AMPM, time):
+def EditRecord(old,new):
 
 
 
 
     conn = sqlite3.connect('Mincrete.db')
     cursor = conn.cursor()
-    cursor = conn.execute("SELECT * FROM order_Details WHERE custID =? and day =? and month =? and year =? and AMPM =? and time =?", (customerid,
-                                                                                                              days, months,
-                                                                                                              years,AMPM, time))
+    cursor = conn.execute("SELECT * FROM order_Details WHERE custID =? and day =? and month =? and year =? and AMPM =? and time =?", (old[0],old[1],old[2],old[3],old[5],old[4]))
     results = cursor.fetchone()
     try:
-        if customerid == results[1]:
-            if days == results[6]:
-                if months == results[7]:
-                    if years == results[8]:
-                        if AMPM == results[10]:
-                            if time == results [9]:
-                                conn.execute("DELETE FROM order_details WHERE  custID =? and day =? and month =? and year =?",
-                                             (customerid, days,
-                                              months, years))
+        if old[0] == results[1]:
+            if old[1]== results[6]:
+                if old[2] == results[7]:
+                    if old[3] == results[8]:
+                        if old[5] == results[10]:
+                            if old[4] == results [9]:
+                                conn.execute('''UPDATE order_details  SET length = ? WHERE orderID = ? ''', (new[0],results[0]))
+                                conn.execute('''UPDATE order_details  SET width = ? WHERE orderID = ? ''', (new[1],results[0]))
+                                conn.execute('''UPDATE order_details  SET depth = ? WHERE orderID = ? ''',(new[2], results[0]))
+                                conn.execute('''UPDATE order_details  SET concrete = ? WHERE orderID = ? ''',(new[3], results[0]))
+                                conn.execute('''UPDATE order_details  SET day = ? WHERE orderID = ? ''',(new[4], results[0]))
+                                conn.execute('''UPDATE order_details  SET month = ? WHERE orderID = ? ''',(new[5], results[0]))
+                                conn.execute('''UPDATE order_details  SET year = ? WHERE orderID = ? ''',(new[6], results[0]))
+                                conn.execute('''UPDATE order_details  SET time = ? WHERE orderID = ? ''',(new[7], results[0]))
+                                conn.execute('''UPDATE order_details  SET AMPM = ? WHERE orderID = ? ''',(new[8], results[0]))
+                                conn.execute('''UPDATE order_details  SET price = ? WHERE orderID = ? ''', (new[9], results[0]))
 
                                 conn.commit()
                                 conn.close()
@@ -80,9 +85,9 @@ def EditRecord(customerid, days, months, years, AMPM, time):
         else:
             messagebox.showinfo("info", "No details were found")
     except:
-        messagebox.showinfo("info", "No details were found")
+        messagebox.showinfo("Error", "No details were found")
     else:
-        messagebox.showinfo("info", "Order has been removed")
+        messagebox.showinfo("info", "Order has been Edited")
 
 
 
