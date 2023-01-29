@@ -47,6 +47,11 @@ def order_table_view():
     tree.heading('Price', text='Price')
 
 
+
+
+
+
+
     conn = sqlite3.connect('Mincrete.db')
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM order_details")
@@ -67,3 +72,5 @@ def order_table_view():
 
 
     root.mainloop()
+
+order_table_view()
