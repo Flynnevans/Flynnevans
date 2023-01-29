@@ -16,8 +16,9 @@ sql database help ^^^
 
 
 
-fix login errors, signup error, opening homepage error
-fix  time error
-add view orders and add schedual
+fix login errors, signup error, opening homepage error ===== do this during the writeup
+fix  time validation error
+add a total price feature so tax can be calculated
+add schedual to be sorted by the next 7 days of orders
 add the edit and remove accounts feature
 clean up program,

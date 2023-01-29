@@ -5,6 +5,7 @@ from tkinter import messagebox
 import validation
 from pricing import *
 import database_manage
+from treeview import order_table_view
 
 
 def windowswap(close, open):
@@ -1029,7 +1030,7 @@ def editorder():
 
 
     exit_button = Button(buttonFrame, text="Exit", width=12, height=3, bg="#C6CFFF",
-                         command=lambda: windowswap(edit_orders.destroy(), homepage()))
+                         command=lambda: windowswap(edit_order.destroy(), homepage()))
     exit_button.grid(row=0, column=0, padx=10, pady=10)
 
     edit_button = Button(buttonFrame, text="Edit Order", width=12, height=3, bg="#C6CFFF",
@@ -1195,7 +1196,7 @@ def homepage():
 
     orders_menu.add_command(label="Remove order", command=lambda: windowswap(home.destroy(), Remove_orderPage()))
     orders_menu.add_command(label="Edit order", command=lambda: windowswap(home.destroy(), editorder()))
-    orders_menu.add_command(label="View orders", command=lambda: windowswap(home.destroy(), accountsPage()))
+    orders_menu.add_command(label="View orders", command=lambda: order_table_view())
 
     lbl = Label(center_frame, font=("calibri", 15, "bold"),
                 background="#728c8d",
