@@ -4,7 +4,9 @@ from tkinter import messagebox
 
 
 def cubic_calculations(length,width,depth):
-    volume = (int(length)) * int((width)) * int((depth)) / 1000000
+    print(length)
+    print(width)
+    volume = (length) * (width) * (depth) / 1000000
     message = (volume,"M cube")
     messagebox.showinfo("Output", message)
 
@@ -36,7 +38,7 @@ def concrete_calculator():
     widthlabel.config(font=("arial", 9), bg="#728c8d")
     widthlabel.grid(row=1, column=0, columnspan=1, sticky="E", pady=10, padx=10)
 
-    width_input = StringVar()
+    width_input = IntVar()
     widthinput = Entry(textFrame, width=15, bg="#aaaaaa", textvariable=width_input)
     widthinput.grid(row=1, column=1, padx=10, pady=10, sticky="SE")
 ####################################################################################
@@ -44,7 +46,7 @@ def concrete_calculator():
     lengthlabel.config(font=("arial", 9), bg="#728c8d")
     lengthlabel.grid(row=2, column=0, columnspan=1, sticky="E", pady=10, padx=10)
 
-    length_input = StringVar()
+    length_input = IntVar()
     lengthinput = Entry(textFrame, width=15, bg="#aaaaaa", textvariable=length_input)
     lengthinput.grid(row=2, column=1, padx=10, pady=10, sticky="SE")
 ######################################################################################
@@ -53,7 +55,7 @@ def concrete_calculator():
     depthlabel.config(font=("arial", 9), bg="#728c8d")
     depthlabel.grid(row=3, column=0, columnspan=1, sticky="E", pady=10, padx=10)
 
-    depth_input = StringVar()
+    depth_input = IntVar()
     depthinput = Entry(textFrame, width=15, bg="#aaaaaa", textvariable=depth_input)
     depthinput.grid(row=3, column=1, padx=10, pady=10, sticky="SE")
 ###############################################################################################
