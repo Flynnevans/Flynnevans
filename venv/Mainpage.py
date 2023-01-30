@@ -5,7 +5,8 @@ from tkinter import messagebox
 import validation
 from pricing import *
 import database_manage
-from treeview import order_table_view
+import treeview
+import calculatorpage
 
 
 def windowswap(close, open):
@@ -1196,7 +1197,9 @@ def homepage():
 
     orders_menu.add_command(label="Remove order", command=lambda: windowswap(home.destroy(), Remove_orderPage()))
     orders_menu.add_command(label="Edit order", command=lambda: windowswap(home.destroy(), editorder()))
-    orders_menu.add_command(label="View orders", command=lambda: order_table_view())
+    orders_menu.add_command(label="View orders", command=lambda: treeview.order_table_view())
+
+    calculator_menu.add_command(label="calculator", command=lambda: calculatorpage.concrete_calculator())
 
     lbl = Label(center_frame, font=("calibri", 15, "bold"),
                 background="#728c8d",

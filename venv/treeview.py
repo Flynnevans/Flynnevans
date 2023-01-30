@@ -19,7 +19,7 @@ def order_table_view():
     # set ttk theme to "clam" which support the fieldbackground option
     style.theme_use("clam")
     style.configure("Treeview", background="#728c8d",
-                    fieldbackground="#728c8d", foreground="grey")
+                    fieldbackground="#728c8d" ,foreground="black")
     tree.column("OrderID", width=80)
     tree.column("CustID", width=50)
     tree.column('Length', width=50)
@@ -73,4 +73,7 @@ def order_table_view():
 
     root.mainloop()
 
-order_table_view()
+
+
+if __name__ == '__main__':
+    pass

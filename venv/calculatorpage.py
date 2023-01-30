@@ -1,10 +1,12 @@
 from tkinter import *
 import sqlite3
 from tkinter import messagebox
-from Mainpage import *
 
-#def cubic_calculations():
 
+def cubic_calculations(length,width,depth):
+    volume = (int(length)) * int((width)) * int((depth)) / 1000000
+    message = (volume,"M cube")
+    messagebox.showinfo("Output", message)
 
 
 
@@ -30,7 +32,7 @@ def concrete_calculator():
 
 
 
-    widthlabel = Label(textFrame, text="Width(M):")
+    widthlabel = Label(textFrame, text="Width(CM):")
     widthlabel.config(font=("arial", 9), bg="#728c8d")
     widthlabel.grid(row=1, column=0, columnspan=1, sticky="E", pady=10, padx=10)
 
@@ -38,7 +40,7 @@ def concrete_calculator():
     widthinput = Entry(textFrame, width=15, bg="#aaaaaa", textvariable=width_input)
     widthinput.grid(row=1, column=1, padx=10, pady=10, sticky="SE")
 ####################################################################################
-    lengthlabel = Label(textFrame, text="Length(M):")
+    lengthlabel = Label(textFrame, text="Length(CM):")
     lengthlabel.config(font=("arial", 9), bg="#728c8d")
     lengthlabel.grid(row=2, column=0, columnspan=1, sticky="E", pady=10, padx=10)
 
@@ -47,7 +49,7 @@ def concrete_calculator():
     lengthinput.grid(row=2, column=1, padx=10, pady=10, sticky="SE")
 ######################################################################################
 
-    depthlabel = Label(textFrame, text="Depth(M):")
+    depthlabel = Label(textFrame, text="Depth(CM):")
     depthlabel.config(font=("arial", 9), bg="#728c8d")
     depthlabel.grid(row=3, column=0, columnspan=1, sticky="E", pady=10, padx=10)
 
@@ -59,7 +61,7 @@ def concrete_calculator():
 
 
     calculate_button = Button(buttonFrame, text="Calculate", width=12, height=3, bg="#C6CFFF",
-                           command=lambda: cubic_calculations() )
+                           command=lambda: cubic_calculations(length_input.get(),width_input.get(),depth_input.get()) )
     calculate_button.grid(row=1, column=1, padx=25, pady=10)
 
     home_button = Button(buttonFrame, text="Return", width=12, height=3, bg="#C6CFFF",
@@ -75,4 +77,5 @@ def concrete_calculator():
 
     calculator.mainloop()
 
-concrete_calculator()
+if __name__ == '__main__':
+    pass
