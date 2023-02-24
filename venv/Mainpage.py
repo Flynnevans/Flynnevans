@@ -1070,13 +1070,13 @@ def accountsPage():
     accounts_menu = Menu(account_menu)
     orders_menu = Menu(account_menu)
     calculator_menu = Menu(account_menu)
-    schedule_menu = Menu(account_menu)
+    help_menu = Menu(account_menu)
 
     account_menu.add_cascade(label="Home", menu=home_menu)
     account_menu.add_cascade(label="Accounts", menu=accounts_menu)
     account_menu.add_cascade(label="Orders", menu=orders_menu)
     account_menu.add_cascade(label="Calculator", menu=calculator_menu)
-    account_menu.add_cascade(label="Schedule", menu=schedule_menu)
+    account_menu.add_cascade(label="Help", menu=help_menu)
 
     textFrame = Frame(accounts, bg="#728c8d", width="450", height="100")
     textFrame.grid(column=0, row=0)
@@ -1092,6 +1092,8 @@ def accountsPage():
     orders_menu.add_command(label="Remove order", command=lambda: windowswap(accounts.destroy(), Remove_orderPage()))
     orders_menu.add_command(label="Edit order", command=lambda: windowswap(accounts.destroy(), editorder()))
     orders_menu.add_command(label="View orders", command=lambda: windowswap(accounts.destroy(), accountsPage()))
+
+    help_menu.add_command(label="Help", command=lambda: windowswap(accounts.destroy(), helpPage()))
 
     edit_button = Button(buttonFrame, text="Edit account", width=12, height=3, bg="#C6CFFF",
                            command=lambda: account_edit())
@@ -1182,13 +1184,13 @@ def homepage():
     accounts_menu = Menu(my_menu)
     orders_menu = Menu(my_menu)
     calculator_menu = Menu(my_menu)
-    schedule_menu = Menu(my_menu)
+    help_menu = Menu(my_menu)
 
     my_menu.add_cascade(label="Home", menu=home_menu)
     my_menu.add_cascade(label="Accounts", menu=accounts_menu)
     my_menu.add_cascade(label="Orders", menu=orders_menu)
     my_menu.add_cascade(label="Calculator", menu=calculator_menu)
-    my_menu.add_cascade(label="Schedule", menu=schedule_menu)
+    my_menu.add_cascade(label="Help", menu=help_menu)
 
     home_menu.add_command (label="Home", command=lambda: windowswap(home.destroy(),homepage()))
     home_menu.add_command (label="Exit", command=lambda: home.destroy())
@@ -1200,6 +1202,8 @@ def homepage():
     orders_menu.add_command(label="View orders", command=lambda: treeview.order_table_view())
 
     calculator_menu.add_command(label="calculator", command=lambda: calculatorpage.concrete_calculator())
+
+    help_menu.add_command(label="Help", command=lambda: windowswap(home.destroy(), helpPage()))
 
     lbl = Label(center_frame, font=("calibri", 15, "bold"),
                 background="#728c8d",
@@ -1213,11 +1217,7 @@ def homepage():
         lbl.grid(column=0,row=1,sticky="S")
     time()
 
-    welcomelabel = Label(center_frame, text="Todays Orders:")
-    welcomelabel.config(font=("Ariel", 10))
-    welcomelabel.config(bg="#728c8d")
-    welcomelabel.grid(row=0, column=0,sticky="N", pady=10, padx=10)
-
+    
 
     home.mainloop()
 

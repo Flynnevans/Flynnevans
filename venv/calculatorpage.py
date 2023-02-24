@@ -6,6 +6,7 @@ from tkinter import messagebox
 def cubic_calculations(length,width,depth):
     print(length)
     print(width)
+    print(depth)
     volume = (length) * (width) * (depth) / 1000000
     message = (volume,"M cube")
     messagebox.showinfo("Output", message)
@@ -63,7 +64,7 @@ def concrete_calculator():
 
 
     calculate_button = Button(buttonFrame, text="Calculate", width=12, height=3, bg="#C6CFFF",
-                           command=lambda: cubic_calculations(length_input.get(),width_input.get(),depth_input.get()) )
+                           command=lambda: cubic_calculations(length_input.get(),width_input.get(),depth_input.get()))
     calculate_button.grid(row=1, column=1, padx=25, pady=10)
 
     home_button = Button(buttonFrame, text="Return", width=12, height=3, bg="#C6CFFF",

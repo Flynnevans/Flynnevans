@@ -200,7 +200,6 @@ def delete_account(x,y):
 def customer_insert(order, customer):
 
     if len(customer) > 4:
-        print("0")
         CustomerID = customer[0][0] + strftime('%M%S') + customer[1][0]
 
         conn = sqlite3.connect('Mincrete.db')
