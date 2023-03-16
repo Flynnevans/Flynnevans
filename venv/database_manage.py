@@ -55,6 +55,8 @@ def EditRecord(old,new):
     cursor = conn.cursor()
     cursor = conn.execute("SELECT * FROM order_details WHERE custID =? and day =? and month =? and year =? and AMPM =? and time =?", (old[0],old[1],old[2],old[3],old[5],old[4]))
     results = cursor.fetchone()
+    print (results)
+    print(old)
     try:
         if old[0] == results[1] and old[1]== results[6] and  old[2] == results[7] and old[3] == results[8] and old[5] == results[10] and old[4] == results [9]:
 

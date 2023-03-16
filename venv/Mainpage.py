@@ -856,48 +856,36 @@ def neworderdetails(olddets):
 
     #-----------------------------------
 
-
-
-
     def editlist(olddetails):
-        global orderdetails, price
+        global orderdetails, price  # global variables
 
-
-
+        # Check if the time entered is valid
         if AMPM_input.get() == "AM" and int(time_input.get()[0:2]) < 7:
             messagebox.showinfo("info", "invalid time")
-
         if AMPM_input.get() == "PM":
             if int(time_input.get()[0:1]) >= 5 and int(time_input.get()[0:1]) != 12:
                 messagebox.showinfo("info", "invalid time")
-
         if int(time_input.get()[0:1]) > 12:
             messagebox.showinfo("info", "invalid time")
-
-
         if int(time_input.get()[3:5]) > 59:
             messagebox.showinfo("info", "invalid time")
 
-
-
-
-
         else:
             price = 0
+            # Calculate the volume of concrete needed
             volume = (length_input.get() * width_input.get() * depth_input.get()) / 1000000
             if volume > 8:
                 messagebox.showinfo("Warning", "Additional mixers will be needed")
             if volume > 30:
-                messagebox.showinfo("Info","Price reduction due to mass buy")
+                messagebox.showinfo("Info", "Price reduction due to mass buy")
                 price = -150
 
-
+            # Check if a concrete type has been entered
             if Con_type_input.get() == "CEM1 ":
-                messagebox.showinfo("info",
-                                    "No concrete type has been entered")
+                messagebox.showinfo("info", "No concrete type has been entered")
                 homepage()
             else:
-
+                # Get the new details of the order
                 newAMPM = AMPM_input.get()
                 newtime = time_input.get()
                 newlength = length_input.get()
@@ -1012,7 +1000,7 @@ def editorder():
 
     edit_order = Tk()
     edit_order.title("Edit Orders")
-    edit_order.geometry("450x400")
+    edit_order.geometry("450x300")
 
     edit_order.config(bg="#728c8d")
 
@@ -1089,28 +1077,6 @@ def editorder():
     AMPMinput.config(bg="#aaaaaa")
     AMPMinput.grid(row=2, column=2, padx=10, pady=10)
 
-    postcode_label = Label(dateframe, text="Postcode:")
-    postcode_label.config(font=("arial", 9), bg="#728c8d")
-    postcode_label.grid(row=3, column=0, columnspan=1, sticky="N", pady=10, padx=10)
-
-    postcode_input = StringVar()
-    postcodeinput = Entry(dateframe, width=15, bg="#aaaaaa", textvariable=postcode_input)
-    postcodeinput.grid(row=3, column=1, padx=10, pady=10)
-    # -------------------------------
-
-    sname_label = Label(dateframe, text="Surname Name:")
-    sname_label.config(font=("arial", 9), bg="#728c8d")
-    sname_label.grid(row=4, column=0, columnspan=1, sticky="N", pady=10, padx=10)
-
-    surname_input = StringVar()
-    surnameinput = Entry(dateframe, width=15, bg="#aaaaaa", textvariable=surname_input)
-    surnameinput.grid(row=4, column=1, padx=10, pady=10)
-
-
-
-
-
-
 
 
 
@@ -1123,8 +1089,7 @@ def editorder():
     edit_button = Button(buttonFrame, text="Edit Order", width=12, height=3, bg="#C6CFFF",
                            command=lambda: windowswap(edit_order.destroy(),neworderdetails([Id_input.get(),day_input.get(),
                                                                                            month_input.get(),year_input.get(),
-                                                                                           time_input.get(),AMPM_input.get(),
-                                                                                           postcode_input.get(),surname_input.get()])))
+                                                                                           time_input.get(),AMPM_input.get()])))
 
     edit_button.grid(row=0, column=1, padx=10, pady=10)
 
