@@ -25,15 +25,20 @@ def delete_Table():
     # conn.close()
 
 
-def Create_Tables():
-    conn = sqlite3.connect('Mincrete.db')
-    print("Opened database successfully")
 
+
+# Define a function to create tables in the database
+def Create_Tables():
+
+    # Connect to the database
+    conn = sqlite3.connect('Mincrete.db')
+    # Print a message to confirm that the database is opened successfully
+    print("Opened database successfully")
+    # Create a table named 'Login_details' if it doesn't already exist
     conn.execute('''CREATE TABLE IF NOT EXISTS Login_details 
                (Username        TEXT     PRIMARY KEY     NOT NULL,
                 Password      TEXT    NOT NULL);''')
-    print("Login Details table is created succesfully")
-
+    # Close the database connection
     conn.close()
 
 
@@ -114,18 +119,11 @@ def DeleteRecord(customerid, days, months, years):
         messagebox.showinfo("info", "Order has been removed")
 
 
-
-
-
-
-
-
-
-
 def customer_table():
+    # Connect to the database
     conn = sqlite3.connect('Mincrete.db')
-    print("Opened database successfully")
 
+    # Create a table named 'cust_details' if it doesn't already exist
     conn.execute('''CREATE TABLE IF NOT EXISTS cust_details 
                (custID        TEXT     PRIMARY KEY     NOT NULL,
                 fname      TEXT    NOT NULL,
@@ -134,15 +132,18 @@ def customer_table():
                 phonenumber     TEXT    NOT NULL,
                 email       TEXT        NOT NULL,
                 postcode      TEXT       NOT NULL);''')
-    print("Customer Details table is created succesfully")
 
+    # Close the database connection
     conn.close()
 
 
+# Define a function to create a table in the database for storing order details
 def order_table():
+    # Connect to the database
     conn = sqlite3.connect('Mincrete.db')
-    print("Opened database successfully")
 
+    # Create a table named 'order_details' if it doesn't already exist
+    # The 'custID' column references the primary key in the 'cust_details' table
     conn.execute('''CREATE TABLE IF NOT EXISTS order_details 
                (orderID        TEXT     PRIMARY KEY     NOT NULL,
                custID           TEXT    NOT NULL,
@@ -157,9 +158,8 @@ def order_table():
                 AMPM       TEXT        NOT NULL,
                 Price      FLOAT       NOT NULL,
                 FOREIGN KEY (custID) REFERENCES cust_Details (custID));''')
-    print("Customer Details table is created succesfully")
 
-
+    # Close the database connection
     conn.close()
 
 
@@ -274,9 +274,5 @@ def orderDet_insert(order, CustomerID):
 
 
 if __name__ == '__main__':
-    #delete_Table()
-    #order_table()
-    # customer_table()
-    #print(dump())
-    #DeleteRecord()
+    order_table()
     pass

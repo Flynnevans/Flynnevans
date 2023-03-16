@@ -8,6 +8,5 @@ def concrete_price(t,v):
     v = (v/4)
     x = list(df[t])[int(v//0.25)-1]
 
-
     return (x)
 

@@ -6,7 +6,7 @@ def adminValidator(username, password, validation):
     conn = sqlite3.connect('Mincrete.db')
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM Login_details where Username=? and Password=?",
-                   ("Richard", validation))
+                   ("Richevs", validation))
     row = cursor.fetchall()
     result = len(row)
     if result == 1:
@@ -40,3 +40,5 @@ def username_validation(username, password):
     else:
         messagebox.showinfo("info", "login failed")
     pass
+
+

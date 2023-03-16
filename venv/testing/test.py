@@ -1,91 +1,48 @@
-#login only
 import sqlite3
-from tkinter import *
+import tkinter as tk
 from tkinter import messagebox
 
-def Create_Tables():
-    # creating table Staff
-    conn = sqlite3.connect('test.db')
-    print("Opened database successfully")
+# create a database connection
+conn = sqlite3.connect('user_data.db')
 
-    # using create if exists to prevent the code to crash if the database already exists.
+# create a table to store user data
+conn.execute('''CREATE TABLE IF NOT EXISTS user (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                surname TEXT NOT NULL
+                );''')
 
-    conn.execute('''CREATE TABLE IF NOT EXISTS Login_details 
-               (Username        TEXT     PRIMARY KEY     NOT NULL,
-                Password      TEXT    NOT NULL);''')
+# create a Tkinter window
+root = tk.Tk()
+root.title('Add User')
 
-    print("Login Details table is created succesfully")
+# create entry widgets for name and surname
+name_label = tk.Label(root, text='Name:')
+name_label.grid(row=0, column=0)
+name_entry = tk.Entry(root)
+name_entry.grid(row=0, column=1)
 
-    conn.close()
+surname_label = tk.Label(root, text='Surname:')
+surname_label.grid(row=1, column=0)
+surname_entry = tk.Entry(root)
+surname_entry.grid(row=1, column=1)
 
-def adminValidator(username,password,validation):
-        conn = sqlite3.connect('Mincrete.db')
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM Login_details where Username=? and Password=?",
-                       ("Richard", validation))
-        row = cursor.fetchall()
-        result = len(row)
-        if result == 1:
-            insertdata(username,password)
-        else:
-            messagebox.showinfo("info", "Signup failed")
-        pass
+# function to insert user data into the database
+def add_user():
+    name = name_entry.get()
+    surname = surname_entry.get()
+    conn.execute(f"INSERT INTO user (name, surname) VALUES ('{name}', '{surname}')")
+    conn.commit()
+    tk.messagebox.showinfo('Success', 'User added to database')
+    name_entry.delete(0, tk.END)
+    surname_entry.delete(0, tk.END)
 
-def insertdata(username1,password1):
-    # inserting data into parent table DEPRATEMENTS
-    # Enter values using input statements
+# create a button to add user data to the database
+add_button = tk.Button(root, text='Add User', command=add_user)
+add_button.grid(row=2, column=0, columnspan=2, pady=10)
 
-    conn = sqlite3.connect('Mincrete.db')
-    # insert data into database table
-    # conn.execute('''insert into Login_details  (Username, Password) values (?, ?)''', )
-    conn.execute('''insert into Login_details  (Username, Password) values (?, ?)''',(username1,password1))
+# start the Tkinter event loop
+root.mainloop()
 
-    conn.commit()  # do not forget to commit the data (i.e. save the data on the table
-    messagebox.showinfo("info", "signup was successful")
-    conn.close()
-
-
-def adminpass():
-
-    conn = sqlite3.connect('test.db')
-    conn.execute('''insert into Login_details  (Username, Password) values (?, ?)''',("Richevs","Concrete"))
-
-    conn.commit()  # do not forget to commit the data (i.e. save the data on the table
-    messagebox.showinfo("info", "signup was successful")
-    conn.close()
-
-
-
-
-
-def username_validation(username, password):
-    from Mainpage import homepage
-    conn = sqlite3.connect('Mincrete.db')
-    cursor=conn.cursor()
-    cursor.execute("SELECT * FROM Login_details where Username=? and Password=?",
-                   (username, password))
-    row=cursor.fetchall()
-    result = len(row)
-    if result == 1:
-        messagebox.showinfo("info", "login success")
-        homepage()
-    else:
-        messagebox.showinfo("info", "login failed")
-    pass
-
-#delete_name = input("enter name")
-conn = sqlite3.connect('test.db')
-cursor = conn.cursor()
-cursor.execute('''DELETE FROM Login_details where Username=? and password=?''',
-               ("Richevs","Concrete"))
+# close the database connection when the GUI is closed
 conn.close()
-
-
-
-
-#Create_Tables()
-#adminpass()
-# insertdata("hi","bye")
-
-if __name__ == "__main__":
-    pass
