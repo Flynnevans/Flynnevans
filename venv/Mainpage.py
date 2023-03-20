@@ -6,12 +6,84 @@ import validation
 from pricing import *
 import database_manage
 import orderview
-import calculatorpage
+import customerview
 
 
 def windowswap(close, open):
     close
     open
+
+
+def cubic_calculations(length,width,depth):
+    print(length)
+    print(width)
+    print(depth)
+    volume = (length) * (width) * (depth) / 1000000
+    message = (volume,"M cube")
+    messagebox.showinfo("Output", message)
+
+
+
+def concrete_calculator():
+    calculator = Tk()
+    calculator.title("Calculator")
+    calculator.geometry("285x300")
+
+    calculator.config(bg="#728c8d")
+
+
+    textFrame = Frame(calculator, bg="#728c8d", width="250", height="250")
+    textFrame.grid(column=0, row=0)
+
+    buttonFrame = Frame(calculator, bg="#728c8d", width="250", height="50")
+    buttonFrame.grid(column=0, row=1)
+
+
+
+    widthlabel = Label(textFrame, text="Width(CM):")
+    widthlabel.config(font=("arial", 9), bg="#728c8d")
+    widthlabel.grid(row=1, column=0, columnspan=1, sticky="E", pady=10, padx=10)
+
+    width_input = IntVar()
+    widthinput = Entry(textFrame, width=15, bg="#aaaaaa", textvariable=width_input)
+    widthinput.grid(row=1, column=1, padx=10, pady=10, sticky="SE")
+####################################################################################
+    lengthlabel = Label(textFrame, text="Length(CM):")
+    lengthlabel.config(font=("arial", 9), bg="#728c8d")
+    lengthlabel.grid(row=2, column=0, columnspan=1, sticky="E", pady=10, padx=10)
+
+    length_input = IntVar()
+    lengthinput = Entry(textFrame, width=15, bg="#aaaaaa", textvariable=length_input)
+    lengthinput.grid(row=2, column=1, padx=10, pady=10, sticky="SE")
+######################################################################################
+
+    depthlabel = Label(textFrame, text="Depth(CM):")
+    depthlabel.config(font=("arial", 9), bg="#728c8d")
+    depthlabel.grid(row=3, column=0, columnspan=1, sticky="E", pady=10, padx=10)
+
+    depth_input = IntVar()
+    depthinput = Entry(textFrame, width=15, bg="#aaaaaa", textvariable=depth_input)
+    depthinput.grid(row=3, column=1, padx=10, pady=10, sticky="SE")
+###############################################################################################
+
+
+
+    calculate_button = Button(buttonFrame, text="Calculate", width=12, height=3, bg="#C6CFFF",
+                           command=lambda: cubic_calculations(length_input.get(),width_input.get(),depth_input.get()))
+    calculate_button.grid(row=1, column=1, padx=25, pady=10)
+
+    home_button = Button(buttonFrame, text="Return", width=12, height=3, bg="#C6CFFF",
+                         command=lambda: windowswap(calculator.destroy(),homepage()))
+    home_button.grid(row=1, column=0, padx=25, pady=10)
+
+
+    accountMenu_label = Label(textFrame, text="Concrete Calculator")
+    accountMenu_label.config(font=("arial", 12))
+    accountMenu_label.config(bg="#728c8d")
+    accountMenu_label.grid(row=0, column=0, columnspan=2, sticky="NSEW", pady=10, padx=10)
+
+
+    calculator.mainloop()
 
 def homepageswap():
     order_Det.destroy()
@@ -273,7 +345,7 @@ def order_details(custdet):
     confirm_button.grid(row=0, column=0, padx=25, pady=10)
 
     return_button = Button(buttonFrame, text="Return", width=12, height=3, bg="#C6CFFF",
-                           command=lambda: windowswap(orderDet.destroy(), new_customerwindow()))
+                           command=lambda: windowswap(orderDet.destroy(), homepage()))
     return_button.grid(row=0, column=1, padx=25, pady=10)
 
     orderDet.mainloop()
@@ -510,136 +582,6 @@ def new_customerwindow():
 
 
     newcustomer.mainloop()
-
-
-
-
-
-
-
-
-
-
-
-# accounts section
-
-# def account_add():
-#
-#     accounts = Tk()
-#     accounts.title("Create account")
-#     accounts.geometry("200x150")
-#     accounts.config(bg="#728c8d")
-#
-#     textFrame = Frame(accounts, bg="#728c8d", width="200", height="90")
-#     textFrame.grid(column=0, row=0)
-#     buttonFrame = Frame(accounts, bg="#728c8d", width="200", height="60")
-#     buttonFrame.grid(column=0, row=1)
-#
-#     User_input = StringVar()
-#     Userinput = Entry(textFrame, width=15, bg="#aaaaaa", textvariable=User_input)
-#     Userinput.grid(row=0, column=1, padx=10, pady=10)
-#
-#     Pass_input = StringVar()
-#     Passinput = Entry(textFrame, width=15, bg="#aaaaaa", textvariable=Pass_input)
-#     Passinput.grid(row=1, column=1, padx=10, pady=10)
-#
-#     username_label = Label(textFrame, text="Username:")
-#     username_label.config(font=("arial", 9), bg="#728c8d")
-#     username_label.grid(row=0, column=0, columnspan=1, sticky="NE", pady=10, padx=10)
-#
-#     password_label = Label(textFrame, text="Password:")
-#     password_label.config(font=("arial", 9), bg="#728c8d")
-#     password_label.grid(row=1, column=0, columnspan=1, sticky="NE", pady=10, padx=10)
-#
-#     create_button = Button(buttonFrame, text="Create account", width=12, height=3, bg="#C6CFFF",
-#                         command= lambda: insertdata(Userinput.get(), Passinput.get()))
-#     create_button.grid(row=1, column=2, padx=25, pady=10)
-#
-#     accounts_add.mainloop()
-
-# def updatepass_user(username, newpass):
-#     conn = sqlite3.connect('Mincrete.db')
-#     cursor = conn.cursor()
-#     cursor.execute("UPDATE Login_details Set Password = ? WHERE Username = ?", newpass, username)
-#     conn.commit()
-#     messagebox.showinfo("info", "password change was successful")
-#     conn.close()
-#
-#
-# def pass_editor(username, password1):
-#     pass_edit = Tk()
-#     pass_edit.title("Editor")
-#     pass_edit.geometry("300x150")
-#     pass_edit.config(bg="#728c8d")
-#
-#     textFrame = Frame(pass_edit, bg="#728c8d", width="200", height="90")
-#     textFrame.grid(column=0, row=0)
-#     buttonFrame = Frame(pass_edit, bg="#728c8d", width="200", height="60")
-#     buttonFrame.grid(column=0, row=1)
-#
-#     newPass_input = StringVar()
-#     newPassinput = Entry(textFrame, width=15, bg="#aaaaaa", textvariable=newPass_input)
-#     newPassinput.grid(row=1, column=1, padx=10, pady=10)
-#
-#     password_label = Label(textFrame, text="New Password:")
-#     password_label.config(font=("arial", 9), bg="#728c8d")
-#     password_label.grid(row=1, column=0, columnspan=1, sticky="NE", pady=10, padx=10)
-#
-#     conn = sqlite3.connect('Mincrete.db')
-#     cursor = conn.cursor()
-#
-#     edit_pass_button = Button(buttonFrame, text="Edit Password", width=12, height=3, bg="#C6CFFF",
-#                               command=lambda: updatepass_user(username,newPass_input))
-#     edit_pass_button.grid(row=1, column=1, padx=25, pady=10)
-#
-#
-#
-#
-# def account_edit():
-#     accounts_edit = Tk()
-#     accounts_edit.title("Edit")
-#     accounts_edit.geometry("300x150")
-#     accounts_edit.config(bg="#728c8d")
-#
-#     textFrame = Frame(accounts_edit, bg="#728c8d", width="200", height="90")
-#     textFrame.grid(column=0, row=0)
-#     buttonFrame = Frame(accounts_edit, bg="#728c8d", width="200", height="60")
-#     buttonFrame.grid(column=0, row=1)
-#
-#     User_input = StringVar()
-#     Userinput = Entry(textFrame, width=15, bg="#aaaaaa", textvariable=User_input)
-#     Userinput.grid(row=0, column=1, padx=10, pady=10)
-#
-#     Pass_input = StringVar()
-#     Passinput = Entry(textFrame, width=15, bg="#aaaaaa", textvariable=Pass_input)
-#     Passinput.grid(row=1, column=1, padx=10, pady=10)
-#
-#     username_label = Label(textFrame, text="Username:")
-#     username_label.config(font=("arial", 9), bg="#728c8d")
-#     username_label.grid(row=0, column=0, columnspan=1, sticky="NE", pady=10, padx=10)
-#
-#     password_label = Label(textFrame, text="Password:")
-#     password_label.config(font=("arial", 9), bg="#728c8d")
-#     password_label.grid(row=1, column=0, columnspan=1, sticky="NE", pady=10, padx=10)
-#
-#     editpass_button = Button(buttonFrame, text="Edit password", width=12, height=3, bg="#C6CFFF",
-#                            command=lambda: (pass_editor(Userinput.get(), Passinput.get())))
-#     editpass_button.grid(row=1, column=2, padx=25, pady=10)
-#
-#     edit_user_button = Button(buttonFrame, text="Edit username", width=12, height=3, bg="#C6CFFF",
-#                          command=lambda: (editor(Userinput.get(), Passinput.get())))
-#     edit_user_button.grid(row=1, column=1, padx=25, pady=10)
-#
-#     accounts_edit.mainloop()
-#
-#
-
-
-
-
-
-
-
 
 
 
@@ -949,7 +891,7 @@ def neworderdetails(olddets):
     confirm_button.grid(row=0, column=0, padx=25, pady=10)
 
     return_button = Button(buttonFrame, text="Return", width=12, height=3, bg="#C6CFFF",
-                           command=lambda: windowswap(orderedit.destroy(), homepage()))
+                           command=lambda: windowswap(orderedit.destroy(), edit_order()))
     return_button.grid(row=0, column=1, padx=25, pady=10)
 
     orderedit.mainloop()
@@ -1103,74 +1045,7 @@ def editorder():
 
 
 
-# def accountsPage():
-#
-#
-#
-#     accounts = Tk()
-#     accounts.title("Accounts")
-#     accounts.geometry("450x200")
-#
-#     accounts.config(bg="#728c8d")
-#
-#     account_menu = Menu(accounts)
-#     accounts.config(menu=account_menu)
-#
-#
-#     home_menu = Menu(account_menu)
-#     accounts_menu = Menu(account_menu)
-#     orders_menu = Menu(account_menu)
-#     calculator_menu = Menu(account_menu)
-#     help_menu = Menu(account_menu)
-#
-#     account_menu.add_cascade(label="Home", menu=home_menu)
-#     account_menu.add_cascade(label="Accounts", menu=accounts_menu)
-#     account_menu.add_cascade(label="Orders", menu=orders_menu)
-#     account_menu.add_cascade(label="Calculator", menu=calculator_menu)
-#     account_menu.add_cascade(label="Help", menu=help_menu)
-#
-#     textFrame = Frame(accounts, bg="#728c8d", width="450", height="100")
-#     textFrame.grid(column=0, row=0)
-#
-#     buttonFrame = Frame(accounts, bg="#728c8d", width="450", height="100")
-#     buttonFrame.grid(column=0, row=1)
-#
-#     home_menu.add_command(label="Home", command=lambda: windowswap(accounts.destroy(), homepage()))
-#     home_menu.add_command(label="Exit", command=lambda: accounts.destroy())
-#
-#     accounts_menu.add_command(label="Accounts", command=lambda: windowswap(accounts.destroy(), accountsPage()))
-#
-#     orders_menu.add_command(label="Remove order", command=lambda: windowswap(accounts.destroy(), Remove_orderPage()))
-#     orders_menu.add_command(label="Edit order", command=lambda: windowswap(accounts.destroy(), editorder()))
-#     orders_menu.add_command(label="View orders", command=lambda: windowswap(accounts.destroy(), accountsPage()))
-#
-#     help_menu.add_command(label="Help", command=lambda: helpPage())
-#
-#     edit_button = Button(buttonFrame, text="Edit account", width=12, height=3, bg="#C6CFFF",
-#                            command=lambda: account_edit())
-#     edit_button.grid(row=1, column=0, padx=25, pady=10)
-#     # ===================================================================================
-#     remove_button = Button(buttonFrame, text="Remove account", width=12, height=3, bg="#C6CFFF",
-#                          command=lambda: account_delete())
-#     remove_button.grid(row=1, column=1, padx=25, pady=10)
-#     # ================================================================================
-#     add_button = Button(buttonFrame, text="Create account", width=12, height=3, bg="#C6CFFF",
-#                          command=lambda: account_add())
-#     add_button.grid(row=1, column=2, padx=25, pady=10)
-#
-#     accountMenu_label = Label(textFrame, text="Welcome to the accounts page")
-#     accountMenu_label.config(font=("arial", 12))
-#     accountMenu_label.config(bg="#728c8d")
-#     accountMenu_label.grid(row=0, column=0, columnspan=1, sticky="NSEW", pady=10, padx=10)
-#
-#
-#
-#
-#
-#
-#
-#
-#     accounts.mainloop()
+
 
 
 
@@ -1249,9 +1124,10 @@ def homepage():
     orders_menu.add_command(label="Remove order", command=lambda: windowswap(home.destroy(), Remove_orderPage()))
     orders_menu.add_command(label="Edit order", command=lambda: windowswap(home.destroy(), editorder()))
     orders_menu.add_command(label="View orders", command=lambda: orderview.order_table_view())
+    orders_menu.add_command(label="View Customers", command=lambda: customerview.customer_table_view())
 
     # Add commands to the calculator menu
-    calculator_menu.add_command(label="calculator", command=lambda: calculatorpage.concrete_calculator())
+    calculator_menu.add_command(label="calculator", command=lambda: windowswap(home.destroy(),concrete_calculator()))
 
     # Add commands to the help menu
     help_menu.add_command(label="Help", command=lambda: helpPage())
@@ -1286,4 +1162,3 @@ def homepage():
 if __name__ == '__main__':
     pass
 
-homepage()

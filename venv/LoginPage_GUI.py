@@ -1,5 +1,5 @@
 from tkinter import *
-from page_switch import *
+from Login_details import *
 
 def windowswap(close, open):
     close
@@ -150,5 +150,5 @@ def mainpage_GUI():
 
     page.mainloop()
 
-mainpage_GUI()
+
 
