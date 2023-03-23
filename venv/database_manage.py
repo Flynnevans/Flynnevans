@@ -3,7 +3,6 @@ import sqlite3
 from tkinter import *
 from tkinter import messagebox
 from time import strftime
-# from Mainpage import homepage
 
 
 
@@ -14,15 +13,11 @@ def windowswap(close, open):
 
 
 def delete_Table():
+
     conn = sqlite3.connect('Mincrete.db')
-    conn.execute('DROP TABLE order_details')
+    conn.execute('DROP TABLE Login_details')
     conn.commit()
     conn.close()
-
-    # conn = sqlite3.connect('Mincrete.db')
-    # conn.execute('DROP TABLE cust_details')
-    # conn.commit()
-    # conn.close()
 
 
 
@@ -80,6 +75,7 @@ def EditRecord(old,new):
         messagebox.showinfo("Error", "No details were found")
     else:
         messagebox.showinfo("info", "Order has been Edited")
+
 
 
 
@@ -167,35 +163,6 @@ def order_table():
 
 
 
-def delete_account(x,y):
-    conn = sqlite3.connect('Mincrete.db')
-    cursor = conn.cursor()
-    cursor.execute("DELETE FROM Login_details where Username =? and Password=?",(x,y ))
-    conn.commit()
-    conn.close()
-
-
-
-# def search_orders(Order_num):
-#     conn = sqlite3.connect('Mincrete.db')
-#     cursor = conn.cursor()
-#     cursor.execute("SELECT * FROM order_details where orderid = ?", (Order_num, ))
-#     found = cursor.fetchall()
-#     cursor.close()
-#     conn.close()
-#     return found
-
-# def dump():
-#     conn = sqlite3.connect('Mincrete.db')
-#     cursor = conn.cursor()
-#     cursor.execute("SELECT * FROM cust_details")
-#     found = cursor.fetchall()
-#     cursor.close()
-#     conn.close()
-#     return found
-
-
-
 
 
 
@@ -276,5 +243,4 @@ def orderDet_insert(order, CustomerID):
 
 
 if __name__ == '__main__':
-    order_table()
     pass

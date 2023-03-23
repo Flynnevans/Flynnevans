@@ -865,13 +865,16 @@ def neworderdetails(olddets):
 
                 if int(a[6:8]) < int(x[2:4]):
                     database_manage.EditRecord(olddetails,neworder)
+                    homepage()
                 elif int(a[6:8]) == int(x[2:4]):
 
                     if int(a[0:2]) < int(y):
                         database_manage.EditRecord(olddetails,neworder)
+                        homepage()
                     elif int(a[0:2]) == int(y):
                         if int(a[3:5]) < int(z):
                             database_manage.EditRecord(olddetails,neworder)
+                            homepage()
                         elif int(a[3:5]) == int(z):
                             messagebox.showinfo("Info", "Same day delivery is not available")
                             homepage()
